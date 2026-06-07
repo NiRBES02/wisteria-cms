@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wisteria - Minecraft сервера</title>
+
+    <? foreach ($this->config->assets['css'] as $x): ?>
+        <link href="<?= $x ?>?v=<?= filemtime(_Root . $x); ?>" rel="stylesheet" media="screen">
+    <? endforeach; ?>
+    <? foreach ($this->config->assets['js'] as $x): ?>
+        <script src="<?= $x ?>?v=<?= filemtime(_Root . $x); ?>"></script>
+    <? endforeach; ?>
+
+</head>
+
+<body class="h-dvh bg-black text-white overflow-hidden"></body>
+
+</html>

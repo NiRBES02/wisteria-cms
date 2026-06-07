@@ -4,7 +4,6 @@ pnpm-lock.yaml
 package-lock.json
 pnpm-workspace.yaml
 
-/index.php
 /wisteriamc
 /wisteriamc.pub
 
@@ -12,7 +11,4 @@ pnpm-workspace.yaml
 /node_modules
 /vendor
 /backups
-/application
-/public
-/src-client
 /log

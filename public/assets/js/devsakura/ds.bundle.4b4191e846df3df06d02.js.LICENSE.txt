@@ -1,0 +1,36 @@
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
+
+/**
+ * EventEmitter — простая система событий для приложения
+ * 
+ * Позволяет издавать и слушать события по всему приложению.
+ * Поддерживает:
+ * - Подписку на события с помощью on()
+ * - Однократную подписку с помощью once()
+ * - Отписку от событий с помощью off() или removeListener()
+ * - Отправку событий с помощью emit()
+ * - Обработку ошибок при выполнении обработчиков
+ * 
+ * @class EventEmitter
+ * @example
+ * // Подписка на событие
+ * Event.on('content.loaded', () => {
+ *   console.log('Контент загружен!');
+ * });
+ * 
+ * // Однократная подписка
+ * Event.once('user.login', (user) => {
+ *   console.log(`Пользователь ${user.name} вошел`);
+ * });
+ * 
+ * // Отправка события
+ * Event.emit('content.loaded', dataArg1, dataArg2);
+ * 
+ * // Отписка
+ * Event.off('content.loaded', myHandler);
+ * 
+ * @author NiRBES02 <github.com/NiRBES02>
+ * @version 1.0.0
+ * @license MIT
+ * @description Этот класс реализует базовую систему событий для клиентского приложения Wisteria CMS. Он позволяет различным частям приложения взаимодействовать друг с другом через события, не создавая жестких связей между ними.
+ */

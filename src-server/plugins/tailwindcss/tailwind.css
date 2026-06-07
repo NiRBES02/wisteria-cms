@@ -1,11 +1,10 @@
 @import "tailwindcss" source(none);
-/* @import "flowbite/src/themes/default"; */
+@import "flowbite/src/themes/default";
 
 @source "../../../client";
 
 
-@source "../../../app";
-@source "../../../static";
+@source "../../../application";
 @source "../../../public";
 
 @font-face {
