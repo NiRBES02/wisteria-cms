@@ -71,8 +71,8 @@
           <div class="h-0.5 w-48 ml-auto bg-linear-to-r from-transparent to-violet-500 rounded-r-full"></div>
         </div>
 
-        <a href="/?router=auth&controller=register"
-          class="group/btn relative flex items-center gap-6 text-white bg-violet-600 hover:bg-violet-500 px-12 py-5 mt-4 md:mt-0 rounded-2xl text-sm font-black transition-all shadow-[0_0_40px_rgba(124,58,237,0.3)] hover:shadow-[0_0_50px_rgba(124,58,237,0.5)] active:scale-95 uppercase tracking-[0.2em]">
+        <a href="/auth"
+          class="group/btn relative flex items-center gap-6 text-white bg-violet-600 hover:bg-violet-500 px-12 py-5 mt-4 md:mt-0 rounded-2xl text-sm font-black transition-all shadow-full-lg shadow-purple-400/50 hover:shadow-full-xl hover:shadow-purple-400 active:scale-95 uppercase tracking-[0.2em]">
           <span class="relative text-lg">Регистрация</span>
           <i
             class="fa-duotone fa-regular fa-arrow-right text-lg transition-transform group-hover/btn:translate-x-1"></i>
@@ -84,7 +84,7 @@
         <div class="w-full flex justify-center">
           <div
             class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/5 flex items-center gap-3">
-            <div class="flex -space-x-2">
+            <!-- <div class="flex -space-x-2">
               <div class="w-6 h-6 rounded-md border border-zinc-800 bg-zinc-700"
                 style="background: url('/?router=skin&user=NiRBES&mode=mini'); background-size: cover;">
               </div>
@@ -94,14 +94,12 @@
               <div class="w-6 h-6 rounded-md border border-zinc-800 bg-zinc-700"
                 style="background: url('/?router=skin&user=Yuki&mode=mini'); background-size: cover;">
               </div>
-            </div>
+            </div> -->
             <span class="text-2xs font-bold text-zinc-300 uppercase tracking-widest">
               <span class="text-purple-500">
-                <? #$userCount; 
-                ?>
+                <?= $usersCount; ?>
               </span>
-              <? #$this->declension($userCount, ['пользователь', 'пользователя', 'пользователей']); 
-              ?> уже
+              <?= $this->declension($usersCount, ['пользователь', 'пользователя', 'пользователей']); ?> уже
               с нами
             </span>
           </div>

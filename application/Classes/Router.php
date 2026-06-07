@@ -24,12 +24,21 @@ class Router {
         $this->dispatch();
     }
 
+
     /**
-     * Очистка URI от параметров запроса (?id=1) и лишних слешей
+     * Очистка URI от параметров запроса, index.php и лишних слешей
      */
     private function prepareUri(): string {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        return trim($uri, '/');
+
+        $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
+        if (strpos($uri, $scriptName) === 0) {
+            $uri = substr($uri, strlen($scriptName));
+        } elseif (strpos($uri, '/index.php') === 0) {
+            $uri = substr($uri, 10);
+        }
+
+        return '/' . trim($uri, '/');
     }
 
     /**
@@ -38,14 +47,13 @@ class Router {
     private function dispatch(): void {
         // Создаем диспетчер FastRoute
         $dispatcher = simpleDispatcher(function (RouteCollector $r) {
-            // 1. Главная страница
-            $r->addRoute('GET', '', 'main/Index');
+            // 1. Главная страница (теперь со слешем)
+            $r->addRoute('GET', '/', 'main/Index');
 
-            // 2. Маршрут модуля: /user, /admin (без действия)
+            // 2. Маршрут модуля: /user, /admin
             $r->addRoute(['GET', 'POST'], '/{module}', 'module_root');
 
-            // 3. Маршрут действия: /user/settings, /user/123, /user/changepassword
-            // {action:.+} означает, что мы захватываем всё до конца строки, включая слеши
+            // 3. Маршрут действия: /user/settings
             $r->addRoute(['GET', 'POST'], '/{module}/{action:.+}', 'module_action');
         });
 

@@ -6,9 +6,9 @@ if (!defined('devsakura')) exit('denied');
 
 class Core {
   public Config $config;
-  // public Database $database;
+  public Database $database;
   public Router $router;
-  // public AuthService $auth;
+  public AuthService $auth;
   public LayoutManager $layoutManager;
 
   public function __construct() {
@@ -19,9 +19,9 @@ class Core {
     // register_shutdown_function([$this, 'handleFatalError']);
 
     $this->config        = new Config($this);
-    // $this->database      = new Database($this);
+    $this->database      = new Database($this);
     $this->router        = new Router();
-    // $this->auth          = new AuthService($this->database);
+    $this->auth          = new AuthService($this->database);
     $this->layoutManager = new LayoutManager($this);
   }
 
@@ -32,17 +32,13 @@ class Core {
 
     $this->layoutManager->reset();
 
-    // Формируем полное имя класса согласно PSR-4
-    // Пример: App\Modules\User\Controllers\SettingsController
     $className = "App\\Modules\\" . ucfirst($module) . "\\" .
       ($type === 'model' ? 'Models\\' : 'Controllers\\') .
       $controller . ($type === 'model' ? 'Model' : 'Controller');
 
     if (class_exists($className)) {
-      // Создаем объект контроллера/модели и передаем Core в конструктор
       $handler = new $className($this);
 
-      // Вызываем метод load() (стандарт для всех твоих модулей)
       if (method_exists($handler, 'load')) {
         $handler->load();
       } else {
@@ -74,5 +70,22 @@ class Core {
   public function handleException($exception) {
   }
   public function handleFatalError() {
+  }
+
+  function declension(int|float $number, array $titles): string {
+    $absNumber = abs((int)$number);
+
+    $mod10 = $absNumber % 10;
+    $mod100 = $absNumber % 100;
+
+    if ($mod100 >= 11 && $mod100 <= 14) {
+      return $titles[2];
+    }
+
+    return match ($mod10) {
+      1       => $titles[0],
+      2, 3, 4 => $titles[1],
+      default => $titles[2],
+    };
   }
 }

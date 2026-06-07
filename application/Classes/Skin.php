@@ -5,16 +5,16 @@ namespace App\Classes;
 if (!defined('devsakura')) exit('denied');
 
 class Skin {
-  private int $mp = 64; // Базовая ширина для множителя
+  private int $mp = 64;
   private Core $core;
   private Database $db;
   private ?User $user;
 
   public function __construct(Core $core) {
     $this->core = $core;
-    // $this->db = $core->database;
+    $this->db = $core->database;
     // Извлекаем текущего пользователя через сервис авторизации (Композиция)
-    // $this->user = $core->auth->getUser();
+    $this->user = $core->auth->getUser();
   }
 
   /**

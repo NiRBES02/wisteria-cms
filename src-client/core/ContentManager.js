@@ -24,24 +24,27 @@ class ContentManager {
   async fetch(url) {
     try {
       const urlObj = new URL(url, window.location.origin);
-      const targetUrl = new URL('/index.php', window.location.origin);
-      urlObj.searchParams.forEach((val, key) => targetUrl.searchParams.append(key, val));
+
+      // Вместо жесткого '/index.php' отправляем запрос на реальный адрес (например, /user?id=1)
+      const targetUrl = new URL(urlObj.pathname + urlObj.search, window.location.origin);
 
       const res = await fetch(targetUrl, {
         method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        headers: { 'X-Requested-With': 'XMLHttpRequest' } // По этому заголовку Core поймет, что нужен JSON
       });
 
       if (!res.ok) throw new Error(`Response status: ${res.status}`);
       const json = await res.json();
+
+      console.log(json)
 
       if (this._shouldRedirectOnNotify(json, urlObj)) {
         await this.load('/');
         return;
       }
 
-      if (json.data?.notify) {
-        const { message, type } = json.data.notify;
+      if (json.notify) {
+        const { message, type } = json.notify;
         await Notify(message, type);
       }
 

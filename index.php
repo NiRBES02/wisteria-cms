@@ -23,5 +23,5 @@ try {
       'type' => 'error'
     ]
   ], JSON_UNESCAPED_UNICODE);
-  error_log($e->message);
+  error_log($e);
 }

@@ -4,19 +4,16 @@ namespace App\Classes;
 
 if (!defined('devsakura')) exit('denied');
 
-class AuthService
-{
+class AuthService {
   private Database $db;
   private ?User $currentUser = null;
 
-  public function __construct(Database $db)
-  {
+  public function __construct(Database $db) {
     $this->db = $db;
     $this->initSession();
   }
 
-  private function initSession(): void
-  {
+  private function initSession(): void {
     if (session_status() === PHP_SESSION_NONE) {
       session_start();
     }
@@ -35,18 +32,15 @@ class AuthService
     }
   }
 
-  public function isAuth(): bool
-  {
+  public function isAuth(): bool {
     return $this->currentUser !== null;
   }
 
-  public function getUser(): ?User
-  {
+  public function getUser(): ?User {
     return $this->currentUser;
   }
 
-  public function login(string $login, string $password): bool
-  {
+  public function login(string $login, string $password): bool {
     $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE login = ? LIMIT 1");
     $stmt->execute([$login]);
     $userData = $stmt->fetch();
@@ -59,8 +53,7 @@ class AuthService
     return false;
   }
 
-  public function logout(): void
-  {
+  public function logout(): void {
     $this->currentUser = null;
     unset($_SESSION['user_id']);
     if (session_status() === PHP_SESSION_ACTIVE) {

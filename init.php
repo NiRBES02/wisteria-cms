@@ -39,7 +39,7 @@ define('_Modules', _App . '/Modules');
 define('_Layouts', _App . '/Static/Layouts');
 define('_Configs', _App . '/Configs');
 define('_Assets', _Root . '/public/assets');
-define('_Uploade_Users', _Root . '/public/uploads/users');
+define('_Uploads_Users', _Root . '/public/uploads/users');
 
 
 
@@ -48,3 +48,6 @@ if (file_exists(_Root . '/vendor/autoload.php')) {
 } else {
   exit('Запустите "composer install" для генерации автозагрузчика зависимостей.');
 }
+
+$dotenv = Dotenv\Dotenv::createImmutable(_Root);
+$dotenv->load();

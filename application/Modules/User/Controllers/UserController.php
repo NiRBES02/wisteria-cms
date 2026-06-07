@@ -12,11 +12,8 @@ abstract class UserController {
     $this->core->layoutManager->reset();
     $this->core->layoutManager->setLayout('profile');
 
-    // Общие элементы навигации для всего модуля User
-    $this->core->layoutManager->addNavbar(
-      'nav-top',
-      $this->core->html(_App_Modules . '/User/Views/nav-top.phtml')
-    );
+    // // Общие элементы навигации для всего модуля User
+    $this->core->layoutManager->addNavbar('nav-top', $this->core->html(_Modules . '/User/Views/nav-top.phtml'));
   }
 
   abstract public function load();
