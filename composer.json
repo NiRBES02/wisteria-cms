@@ -4,7 +4,9 @@
 	"license": "mit",
 	"autoload": {
 		"psr-4": {
-			"App\\": "application/"
+			"App\\": "application/",
+			"App\\Classes\\": "application/Classes/",
+      "App\\Modules\\": "application/Modules/"
 		}
 	},
 	"authors": [
@@ -12,5 +14,7 @@
 			"name": "nirbes"
 		}
 	],
-	"require": {}
+	"require": {
+		"nikic/fast-route": "^1.3"
+	}
 }
