@@ -1,0 +1,9 @@
+{
+  "name": "DiscordBot",
+  "version": "1.0.0",
+  "enabled": true,
+  "type": "module",
+  "module": "./index.js",
+  "color": "magentaBright",
+  "hiddenPrefix": false
+}

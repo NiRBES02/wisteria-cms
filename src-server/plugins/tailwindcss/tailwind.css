@@ -1,0 +1,90 @@
+@import "tailwindcss" source(none);
+/* @import "flowbite/src/themes/default"; */
+
+@source "../../../client";
+
+
+@source "../../../app";
+@source "../../../static";
+@source "../../../public";
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/public/assets/font/inter-V.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-inter: 'Inter';
+
+
+  --shadow-full: 0 0 10px 0 rgb(0 0 0 / 0.15), 0 0 4px 0 rgb(0 0 0 / 0.1);
+
+  --shadow-full-xs: 0 0 2px 0 rgb(0 0 0 / 0.1);
+  --shadow-full-sm: 0 0 5px 0 rgb(0 0 0 / 0.15);
+  --shadow-full-md: 0 0 12px 0 rgb(0 0 0 / 0.2);
+  --shadow-full-lg: 0 0 25px 0 rgb(0 0 0 / 0.15);
+  --shadow-full-xl: 0 0 35px 2px rgb(0 0 0 / 0.2);
+  --shadow-full-2xl: 0 0 60px 5px rgb(0 0 0 / 0.3);
+}
+
+@layer utilities {
+  :where(.scrollbar-thin) {
+    --scrollbar-track: theme(colors.black);
+    --scrollbar-thumb: theme(colors.zinc.900);
+    --scrollbar-thumb-hover: theme(colors.violet.500);
+    --tw-scrollbar-track: theme(colors.black);
+    --tw-scrollbar-thumb: theme(colors.zinc.900);
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: var(--scrollbar-track, var(--tw-scrollbar-track));
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, var(--tw-scrollbar-thumb));
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  .scrollbar-thin:hover::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, var(--tw-scrollbar-thumb));
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover, var(--scrollbar-thumb, var(--tw-scrollbar-thumb)));
+  }
+}
+
+@utility scrollbar-* {
+  --tw-scrollbar-thumb: --value(--color-*);
+  --tw-scrollbar-thumb: --value([color]);
+  --scrollbar-thumb: --value(--color-*);
+  --scrollbar-thumb: --value([color]);
+}
+
+@utility scrollbar-track-* {
+  --tw-scrollbar-track: --value(--color-*);
+  --tw-scrollbar-track: --value([color]);
+  --scrollbar-track: --value(--color-*);
+  --scrollbar-track: --value([color]);
+}
+
+@utility scrollbar-thumb-* {
+  --tw-scrollbar-thumb: --value(--color-*);
+  --tw-scrollbar-thumb: --value([color]);
+  --scrollbar-thumb: --value(--color-*);
+  --scrollbar-thumb: --value([color]);
+}
+
+@utility scrollbar-thumb-hover-* {
+  --scrollbar-thumb-hover: --value(--color-*);
+  --scrollbar-thumb-hover: --value([color]);
+}

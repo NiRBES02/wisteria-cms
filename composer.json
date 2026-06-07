@@ -1,0 +1,16 @@
+{
+	"name": "nirbes/wisteriamc",
+	"type": "project",
+	"license": "mit",
+	"autoload": {
+		"psr-4": {
+			"App\\": "application/"
+		}
+	},
+	"authors": [
+		{
+			"name": "nirbes"
+		}
+	],
+	"require": {}
+}
