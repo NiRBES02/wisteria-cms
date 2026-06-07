@@ -28,7 +28,7 @@ const ContentRouter = {
   }
 };
 
-// Подписываем роутер на событие DOM
+
 Event.on('dom', async () => {
   await ContentRouter.init();
 });

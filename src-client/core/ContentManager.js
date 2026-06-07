@@ -34,7 +34,6 @@ class ContentManager {
 
       if (!res.ok) throw new Error(`Response status: ${res.status}`);
       const json = await res.json();
-      console.log(json)
 
       if (this._shouldRedirectOnNotify(json, urlObj)) {
         await this.load('/');
@@ -72,14 +71,11 @@ class ContentManager {
     Event.emit('content.loaded');
   }
 
-  /**
-   * Логика определения того, какие скрипты грузить
-   */
+
   async _handleScripts(layout, result) {
     const scriptTypes = ['content', 'navbar', 'footer'];
 
     for (const type of scriptTypes) {
-      // Выбираем кастомный скрипт или fallback (Default)
       let scripts = layout[`${type}Scripts`] || layout[`${type}ScriptsDefault`];
 
       if (scripts && Array.isArray(scripts) && scripts.length > 0 && result[`${type}Changed`]) {
@@ -108,28 +104,11 @@ class ContentManager {
     return await this._partialUpdate(layoutData);
   }
 
-  // ... (Методы _calculateHash, _partialUpdate, _updateElementById, _clearNavbar, _clearFooter, _isValidElementId остаются такими же)
-  // Копируй их из своего оригинала сюда без изменений
 
-
-  /**
-       * Проверяет, является ли строка валидным ID для элемента DOM
-       * 
-       * Пропускает числовые ключи (индексы массивов) и пустые строки
-       * 
-       * @param {string} key Ключ из данных
-       * @returns {boolean} true если это валидный ID для элемента
-       * @private
-       */
   _isValidElementId(key) {
     return key && !/^\d+$/.test(key);
   }
 
-  /**
-     * Очищает navbar из DOM и состояния
-     * 
-     * @private
-     */
   _clearNavbar() {
     const navbarElement = document.getElementById('navbar');
     if (navbarElement) {
@@ -139,11 +118,6 @@ class ContentManager {
     this.currentNavbarHash = null;
   }
 
-  /**
-   * Очищает footer из DOM и состояния
-   * 
-   * @private
-   */
   _clearFooter() {
     const footerElement = document.getElementById('footer');
     if (footerElement) {
@@ -153,23 +127,7 @@ class ContentManager {
     this.currentFooterHash = null;
   }
 
-  /**
-     * Обновляет содержимое элемента в DOM
-     * 
-     * Процесс:
-     * 1. Пропускает если содержимое не изменилось
-     * 2. Находит элемент по ID
-     * 3. Сохраняет классы элемента
-     * 4. Обновляет innerHTML
-     * 5. Восстанавливает классы
-     * 6. Обновляет кэш состояния
-     * 
-     * @param {string} elementId ID элемента в DOM
-     * @param {string} newContent Новое HTML содержимое
-     * @param {Object} currentState Объект для хранения текущего состояния
-     * @returns {Promise<void>}
-     * @private
-     */
+
   async _updateElementById(elementId, newContent, currentState) {
     // Пропускаем если содержимое не изменилось
     if (currentState[elementId] === newContent) {
@@ -178,16 +136,12 @@ class ContentManager {
 
     const element = document.getElementById(elementId);
     if (element) {
-      // Сохраняем классы, чтобы не потерять стили
       const currentClasses = element.className;
 
-      // Обновляем содержимое
       element.innerHTML = newContent;
 
-      // Восстанавливаем классы
       element.className = currentClasses;
 
-      // Обновляем состояние
       currentState[elementId] = newContent;
 
       console.log(
@@ -247,12 +201,10 @@ class ContentManager {
     if (navbarData && typeof navbarData === 'object') {
       const newNavbarHash = this._calculateNavbarHash(navbarData);
 
-      // Обновляем только если хеш изменился
       if (this.currentNavbarHash !== newNavbarHash) {
         navbarChanged = true;
         this.currentNavbarHash = newNavbarHash;
 
-        // Обновляем каждый элемент navbar
         for (const [key, content] of Object.entries(navbarData)) {
           if (this._isValidElementId(key) && typeof content === 'string') {
             await this._updateElementById(key, content, this.currentNavbar);
@@ -288,7 +240,6 @@ class ContentManager {
     // === Обновление Footer ===
     let footerData = layoutData.footer;
 
-    // Используем стандартный footer если кастомный не задан
     if (footerData === null && layoutData.footerDefault) {
       console.log(
         `%c[ContentManager] %cИспользуем footerDefault %c(fallback)`,
@@ -325,15 +276,7 @@ class ContentManager {
     return { navbarChanged, contentChanged, footerChanged };
   }
 
-  /**
-     * Вычисляет хеш-сумму для navbar
-     * 
-     * Используется для детектирования изменений содержимого без сравнения строк
-     * 
-     * @param {Object} navbarData Объект navbar {elementId: htmlContent}
-     * @returns {string} Закодированная хеш-сумма
-     * @private
-     */
+
   _calculateNavbarHash(navbarData) {
     const navbarString = Object.entries(navbarData)
       .filter(([key]) => this._isValidElementId(key))
@@ -342,13 +285,7 @@ class ContentManager {
     return encodeURIComponent(navbarString);
   }
 
-  /**
-   * Вычисляет хеш-сумму для контента
-   * 
-   * @param {Object} contentData Объект контента {elementId: htmlContent}
-   * @returns {string} Закодированная хеш-сумма
-   * @private
-   */
+
   _calculateContentHash(contentData) {
     const contentString = Object.entries(contentData)
       .filter(([key]) => this._isValidElementId(key))
@@ -357,13 +294,7 @@ class ContentManager {
     return encodeURIComponent(contentString);
   }
 
-  /**
-   * Вычисляет хеш-сумму для footer
-   * 
-   * @param {Object} footerData Объект footer {elementId: htmlContent}
-   * @returns {string} Закодированная хеш-сумма
-   * @private
-   */
+
   _calculateFooterHash(footerData) {
     const footerString = Object.entries(footerData)
       .filter(([key]) => this._isValidElementId(key))

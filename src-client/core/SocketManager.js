@@ -13,7 +13,6 @@ class SocketManager {
     this.isErrorNotified = false;
     this.jwtToken = null;
 
-    // Promise для отслеживания готовности всего соединения
     this._isReady = new Promise((resolve, reject) => {
       this._resolveReady = resolve;
       this._rejectReady = reject;

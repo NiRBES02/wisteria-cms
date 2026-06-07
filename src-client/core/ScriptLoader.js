@@ -1,6 +1,3 @@
-/**
- * ScriptLoader — отвечает за динамическую загрузку и управление скриптами в DOM
- */
 class ScriptLoader {
   constructor() {
     this.loadedScripts = new Set();
@@ -11,9 +8,6 @@ class ScriptLoader {
     };
   }
 
-  /**
-   * Проверяет, нужно ли загружать скрипты
-   */
   shouldLoad(newScripts, scriptType, currentUrl) {
     const active = this.activeScripts[scriptType];
     if (active.size === 0) return true;
@@ -26,9 +20,7 @@ class ScriptLoader {
     return false;
   }
 
-  /**
-   * Загружает массив скриптов
-   */
+
   async load(scripts, scriptType = 'content') {
     this.remove(scriptType);
 
@@ -68,9 +60,6 @@ class ScriptLoader {
     await Promise.all(promises);
   }
 
-  /**
-   * Удаляет скрипты из DOM
-   */
   remove(scriptType) {
     const oldArea = document.getElementById(`scripts-${scriptType}`);
     if (oldArea) oldArea.remove();
