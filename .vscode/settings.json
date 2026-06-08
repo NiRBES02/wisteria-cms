@@ -70,5 +70,6 @@
 			"iconColour": "#c27aff",
 			"fontStyle": "italic",
 		},
-	}
+	},
+	"editor.letterSpacing": 1
 }

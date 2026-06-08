@@ -56,7 +56,7 @@ export default class CommandRegistry {
         const names = Array.isArray(name) ? name : name.split('|').map(s => s.trim());
         const mainName = names[0].toLowerCase();
         const aliases = names.slice(1).map(n => n.toLowerCase());
-        
+
         const config = { mainName, aliases, description, callback };
         names.forEach(n => this.commands.set(n.toLowerCase(), config));
         return this;
@@ -104,37 +104,90 @@ export default class CommandRegistry {
     }
 
     /**
-     * Парсит массив аргументов командной строки в структурированный объект.
-     * 
-     * Поддерживает:
-     * - длинные флаги: `--verbose`, `--port=3000`
-     * - короткие флаги: `-abc` → `{ a: true, b: true, c: true }`
-     * - позиционные аргументы: `file.txt`, `123`
-     * 
-     * @param {string[]} argsArray Массив строк (например, `process.argv.slice(2)`).
-     * @returns {Object} Объект с тремя полями:
-     * - `flags`: объект с булевыми флагами (`{ v: true, force: true }`)
-     * - `values`: объект с именованными значениями (`{ port: '3000', host: 'localhost' }`)
-     * - `unknown`: массив позиционных аргументов (`['index.js', 'output']`)
-     * 
-     * @example
-     * parseArgs(['--port=3000', '-v', 'app.js'])
-     * // → { flags: { v: true }, values: { port: '3000' }, unknown: ['app.js'] }
-     * 
-     * @todo Поддержка массивов (`--file=a --file=b` → `file: ['a', 'b']`).
-     * @todo Поддержка ковычек (`--file 'a' --file= 'b'` → `file: ['a', 'b']`).
-     */
+    * Парсит массив аргументов командной строки в структурированный объект.
+    * * Функция обрабатывает длинные и короткие флаги, собирает именованные значения
+    * (включая повторяющиеся ключи в массивы) и отделяет позиционные аргументы.
+    *
+    * **Поддерживаемые форматы:**
+    * - Длинные флаги (булевы): `--verbose` -> `flags.verbose = true`
+    * - Длинные флаги со значением через `=`: `--port=3000` -> `values.port = '3000'`
+    * - Длинные флаги со значением через пробел: `--port 3000` -> `values.port = '3000'`
+    * - Повторяющиеся флаги: `--file a --file b` -> `values.file = ['a', 'b']`
+    * - Одиночные короткие флаги со значением: `-p 3000` -> `values.p = '3000'`
+    * - Цепочки коротких флагов: `-abc` -> `flags: { a: true, b: true, c: true }`
+    * - Позиционные аргументы: `file.txt` -> `unknown.push('file.txt')`
+    *
+    * @param {string[]} argsArray - Массив строк аргументов (обычно `process.argv.slice(2)`).
+    * @returns {{
+    *   flags: Record<string, boolean>,
+    *   values: Record<string, string | string[]>,
+    *   unknown: string[]
+    * }} Объект со следующими свойствами:
+    * - `flags`: Сигнальные флаги (со значением `true`).
+    * - `values`: Именованные параметры. Строка для одиночного значения или массив строк для дублирующихся ключей.
+    * - `unknown`: Список позиционных (оставшихся) аргументов.
+    *
+    * @example
+    * const input = ['--port', '3000', '--file=a.txt', '--file=b.txt', '-vd', 'server.js'];
+    * const result = parseArgs(input);
+    * // Результат:
+    * // {
+    * //   flags: { v: true, d: true },
+    * //   values: { port: '3000', file: ['a.txt', 'b.txt'] },
+    * //   unknown: ['server.js']
+    * // }
+    */
     parseArgs(argsArray) {
         const parsed = { flags: {}, values: {}, unknown: [] };
+
+        const setValue = (key, value) => {
+            if (parsed.values[key] !== undefined) {
+                parsed.values[key] = Array.isArray(parsed.values[key]) ? [...parsed.values[key], value] : [parsed.values[key], value];
+            } else {
+                parsed.values[key] = value;
+            }
+        };
+
         for (let i = 0; i < argsArray.length; i++) {
             const arg = argsArray[i];
+
             if (arg.startsWith('--')) {
-                const [key, value] = arg.slice(2).split('=');
-                if (value !== undefined) parsed.values[key] = value;
-                else parsed.flags[key] = true;
-            } else if (arg.startsWith('-')) {
-                arg.slice(1).split('').forEach(f => (parsed.flags[f] = true));
-            } else {
+                const eqIndex = arg.indexOf('=');
+
+                if (eqIndex !== -1) {
+                    const key = arg.slice(2, eqIndex);
+                    const value = arg.slice(eqIndex + 1);
+                    setValue(key, value);
+                } else {
+                    const key = arg.slice(2);
+                    const nextArg = argsArray[i + 1];
+
+                    if (nextArg !== undefined && !nextArg.startsWith('-')) {
+                        setValue(key, nextArg);
+                        i++;
+                    } else {
+                        parsed.flags[key] = true;
+                    }
+                }
+            }
+            else if (arg.startsWith('-') && arg !== '-') {
+                const chars = arg.slice(1).split('');
+
+                if (chars.length === 1) {
+                    const key = chars[0];
+                    const nextArg = argsArray[i + 1];
+
+                    if (nextArg !== undefined && !nextArg.startsWith('-')) {
+                        setValue(key, nextArg);
+                        i++;
+                    } else {
+                        parsed.flags[key] = true;
+                    }
+                } else {
+                    chars.forEach(f => (parsed.flags[f] = true));
+                }
+            }
+            else {
                 parsed.unknown.push(arg);
             }
         }
