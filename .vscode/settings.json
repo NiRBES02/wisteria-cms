@@ -9,6 +9,13 @@
 	"[javascript]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features",
 	},
+	"js/ts.inlayHints.parameterNames.enabled": "literals",
+	"workbench.colorCustomizations": {
+  "editorInlayHint.background": "#2c2c2c",
+  "editorInlayHint.foreground": "#868686"  
+},
+  
+  "editor.inlayHints.enabled": "on",
   "[php]": {
 		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
 	},

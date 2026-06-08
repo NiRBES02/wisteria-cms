@@ -26,7 +26,7 @@ export default class DiscordBotPlugin extends BasePlugin {
             ]
         });
 
-        this.context.config = new ConfigManager(this.context.dir + '/data.json');
+        this.context.config = new ConfigManager(this.context.dir + '/data.jsonc');
 
         const eventsPath = path.join(this.context.dir, 'events');
         try {

@@ -8,7 +8,9 @@ pnpm-workspace.yaml
 /wisteriamc.pub
 
 /.osp
+/.idea
 /node_modules
 /vendor
 /backups
 /log
+/public/assets/css/tailwind.css

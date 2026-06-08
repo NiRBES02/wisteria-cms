@@ -51,7 +51,6 @@ cli.command('unload', 'Выгрузить активный плагин', async 
 });
 
 
-
 async function main() {
   const border = { qlt: '╔', qrt: '╗', qbl: '╚', qbr: '╝', h: '═', v: '║' };
 
