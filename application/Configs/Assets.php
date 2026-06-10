@@ -25,7 +25,7 @@ if (isset($manifest['main.js'])) {
 
 return [
   'css' => [
-    // "/public/assets/css/custom.css",
+    "/public/assets/css/nprogress.css",
     "/public/assets/css/tailwind.css",
     "/public/assets/fontawesome/css/all.css",
     "/public/assets/fontawesome/css/duotone-regular.css",

@@ -88,7 +88,7 @@ async function main() {
   };
 
   logRow('Проект', chalk.bold.blue('https://wisteriamc.ru'));
-  logRow('Версия', chalk.bold.magenta('v4.1.0') + chalk.gray(' experimental'));
+  logRow('Версия', chalk.bold.magenta('v5.0.0') + chalk.gray(' experimental'));
   const commentIndentVersion = ' '.repeat(INLINE_INDENT + KEY_WIDTH + 6);
   cli.logger.log(`${commentIndentVersion}${chalk.yellow('Экспериментальная версия для тестирования новых возможностей')}`);
   cli.logger.log(`${commentIndentVersion}${chalk.gray('(Продакшен? Вернитесь к v3.x)')}`);

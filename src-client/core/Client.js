@@ -1,14 +1,17 @@
 import ContentManager from './ContentManager.js';
-// import SocketManager from './SocketManager.js';
 import ContentRouter from './ContentRouter.js';
 
 import Event from '@f/Event';
+import NProgress from '@u/NProgress';
+
+import Notify from '../functions/Notify.js';
 
 class Client {
   constructor() {
     this.content = ContentManager;
-    // this.socket = SocketManager;
     this.event = Event;
+    this.np = NProgress;
+    this.notify = Notify;
   }
 }
 

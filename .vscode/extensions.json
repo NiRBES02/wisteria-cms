@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "dotenv.dotenv-vscode",
     "xdebug.php-pack",
     "bmewburn.vscode-intelephense-client",
     "esbenp.prettier-vscode",

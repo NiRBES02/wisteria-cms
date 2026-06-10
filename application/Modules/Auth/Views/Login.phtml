@@ -1,67 +1,75 @@
-<div class="h-dvh flex justify-center items-center bg-[url(/application/modules/auth/public/img/background.jpg)]">
+<div class="h-dvh relative">
 
-  <div id="card-login" class="bg-zinc-900/75 border border-zinc-800 p-8 w-full max-w-xl rounded-2xl shadow-2xl shadow-purple-400/25 backdrop-blur">
-    <div class="text-center mb-8">
-      <div class="text-2xl font-black text-white uppercase tracking-tighter">
-        С возвращением<span class="text-purple-500">.</span>
+  <div class="absolute inset-0 bg-[url('/application/modules/auth/public/img/background.jpg')] bg-cover bg-center">
+    <div class="absolute inset-0 bg-black opacity-70"></div>
+  </div>
+
+
+
+  <div class="absolute inset-0 backdrop-blur flex justify-center items-center">
+    <div id="card-login" class="bg-zinc-900/75 border border-zinc-800 p-8 w-full max-w-xl rounded-2xl shadow-2xl shadow-purple-400/25 backdrop-blur">
+      <div class="text-center mb-8">
+        <div class="text-2xl font-black text-white uppercase tracking-tighter">
+          С возвращением<span class="text-purple-500">.</span>
+        </div>
+        <span class="text-zinc-400 text-2xs font-bold uppercase tracking-widest">
+          Введите данные для входа
+        </span>
       </div>
-      <span class="text-zinc-400 text-2xs font-bold uppercase tracking-widest">
-        Введите данные для входа
-      </span>
-    </div>
 
-    <form id="formLogin" class="space-y-4">
-      <div class="relative group flex items-center">
-        <div
-          class="absolute left-5 size-6 text-zinc-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-1">
-          <div class="relative">
-            <div id="icon-user" class="absolute transition-all duration-700 opacity-100 scale-100">
-              <i class="fa-duotone fa-regular fa-user"></i>
-            </div>
-            <div id="icon-at" class="absolute transition-all duration-700 opacity-0 scale-50">
-              <i class="fa-duotone fa-regular fa-at"></i>
+      <form id="formLogin" class="space-y-4">
+        <div class="relative group flex items-center">
+          <div
+            class="absolute left-5 size-6 text-zinc-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-1">
+            <div class="relative">
+              <div id="icon-user" class="absolute transition-all duration-700 opacity-100 scale-100">
+                <i class="fa-duotone fa-regular fa-user"></i>
+              </div>
+              <div id="icon-at" class="absolute transition-all duration-700 opacity-0 scale-50">
+                <i class="fa-duotone fa-regular fa-at"></i>
+              </div>
             </div>
           </div>
-        </div>
-        <input type="text" name="login" id="loginInput" placeholder=" "
-          class="peer w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-transparent outline-none focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/25 transition-all z-0">
-        <label for="loginInput"
-          class="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-zinc-400 tracking-widest pointer-events-none transition-all duration-100 z-10
+          <input type="text" name="login" id="loginInput" placeholder=" "
+            class="peer w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-transparent outline-none focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/25 transition-all z-0">
+          <label for="loginInput"
+            class="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-zinc-400 tracking-widest pointer-events-none transition-all duration-100 z-10
           peer-focus:left-5 peer-focus:top-0 peer-focus:bg-zinc-950 peer-focus:border peer-focus:border-purple-400/50 peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-lg peer-focus:text-2xs peer-focus:text-purple-400
           peer-[:not(:placeholder-shown)]:left-5 peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:bg-zinc-950 peer-[:not(:placeholder-shown)]:border peer-[:not(:placeholder-shown)]:border-purple-400/50 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:py-0.5 peer-[:not(:placeholder-shown)]:rounded-lg peer-[:not(:placeholder-shown)]:text-2xs">
-          Логин / E-mail
-        </label>
-      </div>
-      <div class="relative group flex items-center">
-        <div
-          class="absolute left-5 text-zinc-500 group-focus-within:text-purple-400 transition-colors pointer-events-none z-1 size-6">
-          <i class="fa-duotone fa-regular fa-lock text-base"></i>
+            Логин / E-mail
+          </label>
         </div>
-        <input type="password" name="password" id="passwordInput" placeholder=" "
-          class="peer w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-transparent outline-none focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/25 transition-all z-0">
-        <label for="passwordInput"
-          class="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-zinc-400 tracking-widest pointer-events-none transition-all duration-100 z-10
+        <div class="relative group flex items-center">
+          <div
+            class="absolute left-5 text-zinc-500 group-focus-within:text-purple-400 transition-colors pointer-events-none z-1 size-6">
+            <i class="fa-duotone fa-regular fa-lock text-base"></i>
+          </div>
+          <input type="password" name="password" id="passwordInput" placeholder=" "
+            class="peer w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-transparent outline-none focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/25 transition-all z-0">
+          <label for="passwordInput"
+            class="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-zinc-400 tracking-widest pointer-events-none transition-all duration-100 z-10
           peer-focus:left-5 peer-focus:top-0 peer-focus:bg-zinc-950 peer-focus:border peer-focus:border-purple-400/50 peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-lg peer-focus:text-2xs peer-focus:text-purple-400
           peer-[:not(:placeholder-shown)]:left-5 peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:bg-zinc-950 peer-[:not(:placeholder-shown)]:border peer-[:not(:placeholder-shown)]:border-purple-400/50 peer-[:not(:placeholder-shown)]:px-2 peer-[:not(:placeholder-shown)]:py-0.5 peer-[:not(:placeholder-shown)]:rounded-lg peer-[:not(:placeholder-shown)]:text-2xs">
-          Пароль
-        </label>
-        <button id="showPassword" type="button"
-          class="absolute right-5 text-zinc-400 hover:text-purple-400 transition-colors z-10">
-          <i id="icon-show-password" class="fa-duotone fa-regular fa-eye text-base"></i>
+            Пароль
+          </label>
+          <button id="showPassword" type="button"
+            class="absolute right-5 text-zinc-400 hover:text-purple-400 cursor-pointer transition-colors z-10">
+            <i id="icon-show-password" class="fa-duotone fa-regular fa-eye text-base"></i>
+          </button>
+        </div>
+        <button id="btnLogin" type="submit"
+          class="w-full bg-purple-500 hover:bg-purple-400 text-white font-bold py-4 rounded-2xl transition-all hover:shadow hover:shadow-purple-400 uppercase tracking-widest text-xs active:scale-99 hover:scale-101 duration-100 mt-4 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+          <span>Авторизоваться</span>
         </button>
-      </div>
-      <button id="btnLogin" type="submit"
-        class="w-full bg-purple-500 hover:bg-purple-400 text-white font-bold py-4 rounded-2xl transition-all hover:shadow hover:shadow-purple-400 uppercase tracking-widest text-xs active:scale-99 hover:scale-101 duration-100 mt-4 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
-        <span>Авторизоваться</span>
-      </button>
-    </form>
+      </form>
 
-    <div class="mt-8 text-center">
-      <span class="text-zinc-500 text-sm font-bold uppercase tracking-wide">
-        Нет аккаунта?
-        <a href="/?router=auth&controller=register"
-          class="text-white hover:text-purple-400 transition-colors ml-1 duration-100">Зарегистрироваться</a>
-      </span>
+      <div class="mt-8 text-center">
+        <span class="text-zinc-500 text-sm font-bold uppercase tracking-wide">
+          Нет аккаунта?
+          <a href="/?router=auth&controller=register"
+            class="text-white hover:text-purple-400 transition-colors ml-1 duration-100">Зарегистрироваться</a>
+        </span>
+      </div>
     </div>
   </div>
 

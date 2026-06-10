@@ -8,12 +8,12 @@
   <div class="flex items-center gap-4">
     <? if (!$this->auth->isAuth()): ?>
       <a href="/auth"
-        class="hidden md:flex items-center gap-2 bg-purple-600 hover:bg-purple-400 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 hover:shadow-full-lg hover:shadow-purple-400 border border-purple-400/25 active:scale-95 cursor-pointer">
+        class="hidden md:flex items-center gap-2 bg-purple-400/50 hover:bg-purple-400 px-6 py-2 rounded text-xs font-bold uppercase tracking-[0.1rem] transition-all duration-200 hover:shadow-full-lg hover:shadow-purple-400 border border-purple-400/50 backdrop-blur-xs active:scale-95 cursor-pointer">
         <span>Войти</span>
       </a>
 
-      <a href="/auth/register"
-        class="hidden md:flex items-center gap-2 bg-purple-600/25 backdrop-blur-2xl text-purple-100 hover:text-purple-200 px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest border border-black/10 hover:border-purple-400/10 transition-all duration-200 hover:bg-purple-400 hover:shadow-full-md hover:shadow-purple-400 active:scale-95 cursor-pointer">
+      <a href="/auth"
+        class="hidden md:flex items-center gap-2 px-6 py-2 rounded text-xs font-bold uppercase tracking-[0.1rem] transition-all duration-200 hover:shadow-full-lg hover:shadow-purple-400 border border-purple-400/50 backdrop-blur-xs active:scale-95 cursor-pointer">
         <span>Регистрация</span>
       </a>
       <a href="/auth"
@@ -21,11 +21,6 @@
         <i class="fa-duotone fa-regular fa-arrow-right-to-bracket"></i>
       </a>
     <? else: ?>
-      <!-- <a href="/"
-                    class="rounded px-4 py-2 font-bold flex items-center justify-between uppercase text-white hover:cursor-pointer hover:scale-105 active:scale-95 duration-300 transition-all bg-linear-to-br from-purple-400 to-purple-800">
-                    Скачать
-                </a> -->
-
       <button id="ddAvatarToggle"
         class="size-10 border border-violet-400/50 rounded-lg relative overflow-hidden cursor-pointer"
         type="button">

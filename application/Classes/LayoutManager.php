@@ -27,8 +27,6 @@ class LayoutManager {
   }
 
   private function loadDefaults(): void {
-    // Используем новый сервис авторизации через композицию
-    // $isAuth = $this->core->auth->isAuth() ? 'auth' : 'unauth';
     $isAuth = 'unauth';
 
     $this->defaults = [

@@ -1,6 +1,7 @@
 import Event from '@f/Event';
 import Notify from '@f/Notify';
 import ScriptLoader from './ScriptLoader.js';
+import nProgress from 'nprogress';
 
 class ContentManager {
   constructor() {
@@ -23,14 +24,16 @@ class ContentManager {
 
   async fetch(url) {
     try {
+      nProgress.start();
+      nProgress.configure({ showSpinner: false });
+
       const urlObj = new URL(url, window.location.origin);
 
-      // Вместо жесткого '/index.php' отправляем запрос на реальный адрес (например, /user?id=1)
       const targetUrl = new URL(urlObj.pathname + urlObj.search, window.location.origin);
 
       const res = await fetch(targetUrl, {
         method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' } // По этому заголовку Core поймет, что нужен JSON
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
       });
 
       if (!res.ok) throw new Error(`Response status: ${res.status}`);
@@ -51,6 +54,8 @@ class ContentManager {
       await this.fullUpdate(json, urlObj);
     } catch (e) {
       console.error('[ContentManager] Fetch error:', e);
+    } finally {
+      nProgress.done();
     }
   }
 

@@ -1,11 +1,21 @@
 ds.event.once('content.loaded', () => {
-  // console.log('test');
 
   const form = document.getElementById('formLogin');
   const iconUser = document.getElementById('icon-user');
   const iconAt = document.getElementById('icon-at');
 
+  const showPasswordBtn = document.getElementById('showPassword');
+  const iconShowPassword = document.getElementById('icon-show-password');
+
   let showAt = false;
+
+  showPasswordBtn.addEventListener('click', () => {
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+
+    iconShowPassword.classList.toggle('fa-eye', !isPassword);
+    iconShowPassword.classList.toggle('fa-eye-slash', isPassword);
+  });
 
   const changeIconLogin = () => {
     showAt = !showAt;
@@ -31,9 +41,9 @@ ds.event.once('content.loaded', () => {
     event.preventDefault();
     try {
       const formData = new FormData(form);
-      formData.append('client', JSON.stringify(ds.ua.getResult()));
+      // formData.append('client', JSON.stringify(ds.ua.getResult()));
 
-      const response = await fetch('/index.php?router=auth&model=login', {
+      const response = await fetch('/auth/api/login', {
         method: 'POST',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         body: formData,

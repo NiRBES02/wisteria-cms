@@ -26,15 +26,16 @@ class Core {
   }
 
   public function handleRequest(): void {
-    $module       = $this->router->getModule();
-    $controller   = $this->router->getController();
-    $type         = $this->router->getTargetType();
+    $module     = $this->router->getModule();
+    $controller = $this->router->getController();
+    $type       = $this->router->getTargetType();
 
     $this->layoutManager->reset();
 
-    $className = "App\\Modules\\" . ucfirst($module) . "\\" .
-      ($type === 'model' ? 'Models\\' : 'Controllers\\') .
-      $controller . ($type === 'model' ? 'Model' : 'Controller');
+    $subNamespace = $type === 'model' ? "Models\\" : "Controllers\\";
+    $suffix       = $type === 'model' ? "Model" : "Controller";
+
+    $className = "App\\Modules\\" . ucfirst($module) . "\\" . $subNamespace . $controller . $suffix;
 
     if (class_exists($className)) {
       $handler = new $className($this);
@@ -45,9 +46,7 @@ class Core {
         $this->json(['notify' => ['message' => 'Метод load() не найден в классе', 'type' => 'error']]);
       }
     } else {
-      $this->json([
-        'notify' => ['message' => "Ресурс $className не найден", 'type' => 'error']
-      ]);
+      $this->json(['notify' => ['message' => "Ресурс $className не найден", 'type' => 'error']]);
     }
   }
 
@@ -72,7 +71,7 @@ class Core {
   public function handleFatalError() {
   }
 
-  function declension(int|float $number, array $titles): string {
+  public function declension(int|float $number, array $titles): string {
     $absNumber = abs((int)$number);
 
     $mod10 = $absNumber % 10;

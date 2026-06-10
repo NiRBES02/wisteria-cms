@@ -23,20 +23,14 @@ class Router {
         $this->dispatch();
     }
 
-
-    /**
-     * Очистка URI от параметров запроса, index.php и лишних слешей
-     */
     private function prepareUri(): string {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
         $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
         if (strpos($uri, $scriptName) === 0) {
             $uri = substr($uri, strlen($scriptName));
         } elseif (strpos($uri, '/index.php') === 0) {
             $uri = substr($uri, 10);
         }
-
         return '/' . trim($uri, '/');
     }
 
@@ -45,48 +39,49 @@ class Router {
      */
     private function dispatch(): void {
         $dispatcher = simpleDispatcher(function (RouteCollector $r) {
-            // Главная страница
+            // Главная страница (GET)
             $r->addRoute('GET', '/', 'main/Index');
 
-            // Маршрут модуля: /user, /admin
-            $r->addRoute(['GET', 'POST'], '/{module}', 'module_root');
+            // API маршруты для Моделей: /auth/api/login, /user/api/settings
+            $r->addRoute(['GET', 'POST'], '/{module}/api/{action:.+}', 'module_api');
 
-            // Маршрут действия: /user/settings
+            // Обычные маршруты для Контроллеров: /auth/login, /user/settings
             $r->addRoute(['GET', 'POST'], '/{module}/{action:.+}', 'module_action');
+
+            // Корневой маршрут модуля: /auth, /user
+            $r->addRoute(['GET', 'POST'], '/{module}', 'module_root');
         });
 
         $routeInfo = $dispatcher->dispatch($this->method, $this->uri);
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                // 404 обработка
                 $this->module = 'main';
                 $this->controller = 'Error404';
+                $this->targetType = 'controller';
                 break;
 
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $this->module = 'main';
                 $this->controller = 'Error405';
+                $this->targetType = 'controller';
                 break;
 
             case Dispatcher::FOUND:
-                $handler = $routeInfo[1];
-                $vars = $routeInfo[2];
-                $this->resolveMagicRoute($handler, $vars);
+                $this->resolveMagicRoute($routeInfo[1], $routeInfo[2]);
                 break;
         }
     }
-
 
     private function resolveMagicRoute(string $handler, array $vars): void {
         if ($handler === 'main/Index') {
             $this->module = 'main';
             $this->controller = 'Index';
+            $this->targetType = 'controller';
             return;
         }
 
         $this->module = $vars['module'] ?? 'main';
-        $moduleNamespace = "App\\Modules\\" . ucfirst($this->module);
 
         if ($handler === 'module_root') {
             $this->controller = 'Index';
@@ -94,35 +89,21 @@ class Router {
             return;
         }
 
-        if ($handler === 'module_action') {
-            $actionFull = $vars['action'];
-            $segments = explode('/', $actionFull);
-            $action = $segments[0];
-            $actionFormatted = ucfirst($action);
+        $actionFull = $vars['action'];
+        $segments = explode('/', $actionFull);
+        $action = $segments[0];
 
-            $controllerClass = $moduleNamespace . "\\Controllers\\" . $actionFormatted . "Controller";
-            $modelClass      = $moduleNamespace . "\\Models\\" . $actionFormatted . "Model";
+        $this->controller = ucfirst($action);
+        $this->params = array_slice($segments, 1);
 
-            if (class_exists($controllerClass)) {
-                $this->controller = $actionFormatted;
-                $this->targetType = 'controller';
-                $this->params = array_slice($segments, 1);
-            } elseif (class_exists($modelClass)) {
-                $this->controller = $actionFormatted;
-                $this->targetType = 'model';
-                $this->params = array_slice($segments, 1);
-            } else {
-                $this->controller = 'Index';
-                $this->targetType = 'controller';
-                $this->params = $segments;
-            }
+        if ($handler === 'module_api') {
+            $this->targetType = 'model';
+        } else {
+            $this->targetType = 'controller';
         }
     }
 
-    // 
     // ГЕТТЕРЫ
-    //
-
     public function getModule(): string {
         return $this->module;
     }
@@ -135,7 +116,6 @@ class Router {
     public function getParams(): array {
         return $this->params;
     }
-
     public function getParam(int $index, $default = null) {
         return $this->params[$index] ?? $default;
     }
@@ -144,7 +124,6 @@ class Router {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
-
     public function isPost(): bool {
         return $this->method === 'POST';
     }
