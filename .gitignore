@@ -49,5 +49,6 @@ pnpm-workspace.yaml
 # 
 # Компилируемые ассеты
 # 
-public/assets/js/*
-public/assets/css/*
+public/assets/js
+public/assets/css
+!/public/assets/css/nprogress.css
