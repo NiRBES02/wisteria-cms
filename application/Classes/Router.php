@@ -12,7 +12,6 @@ class Router {
     private string $method;
     private string $uri;
 
-    // Эти свойства остаются для совместимости с твоим Core.php
     private string $module = 'main';
     private string $controller = 'Index';
     private string $targetType = 'controller';
@@ -45,15 +44,14 @@ class Router {
      * Основной процесс маршрутизации через FastRoute
      */
     private function dispatch(): void {
-        // Создаем диспетчер FastRoute
         $dispatcher = simpleDispatcher(function (RouteCollector $r) {
-            // 1. Главная страница (теперь со слешем)
+            // Главная страница
             $r->addRoute('GET', '/', 'main/Index');
 
-            // 2. Маршрут модуля: /user, /admin
+            // Маршрут модуля: /user, /admin
             $r->addRoute(['GET', 'POST'], '/{module}', 'module_root');
 
-            // 3. Маршрут действия: /user/settings
+            // Маршрут действия: /user/settings
             $r->addRoute(['GET', 'POST'], '/{module}/{action:.+}', 'module_action');
         });
 
@@ -61,7 +59,7 @@ class Router {
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                // 404 обработка (Core.php это подхватит)
+                // 404 обработка
                 $this->module = 'main';
                 $this->controller = 'Error404';
                 break;
@@ -79,9 +77,7 @@ class Router {
         }
     }
 
-    /**
-     * Та самая «Магия» определения Контроллер/Модель/ID
-     */
+
     private function resolveMagicRoute(string $handler, array $vars): void {
         if ($handler === 'main/Index') {
             $this->module = 'main';
@@ -89,48 +85,43 @@ class Router {
             return;
         }
 
-        // Определяем модуль
         $this->module = $vars['module'] ?? 'main';
         $moduleNamespace = "App\\Modules\\" . ucfirst($this->module);
 
-        // Если зашли просто в /module
         if ($handler === 'module_root') {
             $this->controller = 'Index';
             $this->targetType = 'controller';
             return;
         }
 
-        // Если зашли в /module/action...
         if ($handler === 'module_action') {
-            $actionFull = $vars['action']; // Здесь может быть 'settings' или '123/profile'
+            $actionFull = $vars['action'];
             $segments = explode('/', $actionFull);
-            $action = $segments[0]; // Первое слово после модуля
+            $action = $segments[0];
             $actionFormatted = ucfirst($action);
 
-            // Проверяем существование классов по PSR-4
             $controllerClass = $moduleNamespace . "\\Controllers\\" . $actionFormatted . "Controller";
             $modelClass      = $moduleNamespace . "\\Models\\" . $actionFormatted . "Model";
 
             if (class_exists($controllerClass)) {
                 $this->controller = $actionFormatted;
                 $this->targetType = 'controller';
-                // Все остальное после action уходит в параметры
                 $this->params = array_slice($segments, 1);
             } elseif (class_exists($modelClass)) {
                 $this->controller = $actionFormatted;
                 $this->targetType = 'model';
                 $this->params = array_slice($segments, 1);
             } else {
-                // Это ID или параметр -> идем в IndexController
                 $this->controller = 'Index';
                 $this->targetType = 'controller';
-                // Весь остаток (включая action) становится параметрами
                 $this->params = $segments;
             }
         }
     }
 
-    // --- Геттеры для Core.php (без изменений) ---
+    // 
+    // ГЕТТЕРЫ
+    //
 
     public function getModule(): string {
         return $this->module;

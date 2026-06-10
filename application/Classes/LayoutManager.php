@@ -148,7 +148,7 @@ class LayoutManager {
         'navbarDefault' => $this->navbarDefault,
         'footer' => $this->footer,
         'footerDefault' => $this->footerDefault,
-        'contentScripts' => $this->contentScripts,
+        'contentScripts' => $this->getContentScripts(),
         'contentScriptsDefault' => $this->contentScriptsDefault,
         'navbarScripts' => $this->navbarScripts,
         'navbarScriptsDefault' => $this->navbarScriptsDefault,

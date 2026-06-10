@@ -1,5 +1,5 @@
 {
-  "name": "DiscordBot",
+  "name": "Discord",
   "version": "1.0.0",
   "enabled": true,
   "type": "module",

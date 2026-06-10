@@ -37,9 +37,7 @@ export default class PluginManager {
      * Поэтому пока что оставим его таким, какой он есть, а там уже по мере необходимости буду дополнять его.
      */
     createContext(pluginInfo) {
-        const prefix = pluginInfo.config.hiddenPrefix
-            ? ''
-            : chalk[pluginInfo.config.color || 'reset'](`[${pluginInfo.config.name}] `);
+        const prefix = pluginInfo.config.hiddenPrefix ? '' : chalk[pluginInfo.config.color || 'reset'](`[${pluginInfo.config.name}] `);
         const logger = (...args) => {
             if (prefix) {
                 if (typeof args[0] === 'string') {
@@ -101,6 +99,12 @@ export default class PluginManager {
              * @param {...*} args Аргументы для логирования (поддерживаются объекты, ошибки).
              */
             log: logger,
+
+            /**
+             * Доступ к CLI
+             * @type {CLI} 
+             */
+            cli: this.cli,
 
             /**
              * Регистрирует команду CLI, связанную с этим плагином.

@@ -52,7 +52,7 @@ export default class PluginLoader {
             return;
         }
 
-        const configManager = new ConfigManager(configPath);
+        const configManager = new ConfigManager(configPath, this.pm.cli.logger);
         let config = configManager.get();
 
 

@@ -1,6 +1,7 @@
 {
 	"name": "nirbes/wisteriamc",
 	"type": "project",
+	"version": "4.1.0",
 	"license": "mit",
 	"autoload": {
 		"psr-4": {

@@ -21,6 +21,8 @@ export default class TailwindCssPlugin extends BasePlugin {
       shell: false,
       stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
       reject: false,
+      cleanup: true,
+      detached: false,
     });
 
     this.sub.stdout.on('data', data => {
@@ -43,10 +45,21 @@ export default class TailwindCssPlugin extends BasePlugin {
 
   async onDisable() {
     this.context.log('Plugin status: disabling');
+
+    if (!this.sub) return;
+
     try {
-      if (this.sub) await this.sub.kill();
+      if (process.platform === 'win32') {
+        await execa('taskkill', ['/pid', this.sub.pid, '/f', '/t']);
+      } else {
+        process.kill(-this.sub.pid, 'SIGKILL');
+      }
+
+      await this.sub;
     } catch (err) {
       this.context.log('Ошибка остановки процесса:', err.message);
+    } finally {
+      this.sub = null;
     }
   }
 

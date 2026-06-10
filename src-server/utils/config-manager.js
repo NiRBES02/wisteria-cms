@@ -17,11 +17,13 @@ import path from 'node:path';
  * config.save({ port: 3000, debug: true });
  * const current = config.get();
  * 
- * @todo Добавить контекст для логгера, пока что используем обычный console.log только для критических уведомлений.
  */
 export class ConfigManager {
   /** @private @type {string} Полный путь к файлу конфигурации */
   #filePath;
+
+  /** @private @type {Object} Контекст */
+  #context;
 
   /** @private @type {Object} Кэш текущей конфигурации в памяти */
   #configCache;
@@ -41,8 +43,9 @@ export class ConfigManager {
    * - загружает текущие данные в кэш,
    * - запускает наблюдение за файлом для отслеживания изменений извне.
    */
-  constructor(relativeOrAbsolutePath) {
+  constructor(relativeOrAbsolutePath, context) {
     this.#filePath = path.resolve(relativeOrAbsolutePath);
+    this.#context = context;
     this.#configCache = {};
     this.#debounceTimeout = null;
 
@@ -164,7 +167,7 @@ export class ConfigManager {
         fs.writeFileSync(this.#filePath, JSON.stringify({}, null, 2), 'utf-8');
       }
     } catch (error) {
-      console.error(`[ConfigManager] Ошибка инициализации файла: ${error.message}`);
+      this.#log(`[ConfigManager] Ошибка инициализации файла: `, error);
     }
   }
 
@@ -181,7 +184,7 @@ export class ConfigManager {
       const content = fs.readFileSync(this.#filePath, 'utf-8').trim();
       this.#configCache = content ? JSON.parse(content) : {};
     } catch (error) {
-      console.error(`[ConfigManager] Ошибка чтения/парсинга JSON: ${error.message}`);
+      this.#log(`[ConfigManager] Ошибка чтения/парсинга JSON: `, error);
     }
   }
 
@@ -198,7 +201,7 @@ export class ConfigManager {
       const content = JSON.stringify(this.#configCache, null, 2);
       fs.writeFileSync(this.#filePath, content, 'utf-8');
     } catch (error) {
-      console.error(`[ConfigManager] Ошибка записи в файл: ${error.message}`);
+      this.#log(`[ConfigManager] Ошибка записи в файл: `, error);
     }
   }
 
@@ -222,9 +225,18 @@ export class ConfigManager {
         clearTimeout(this.#debounceTimeout);
         this.#debounceTimeout = setTimeout(() => {
           this.#loadConfig();
-          // NiRBES: Тут я хотел добавить вывод лога о том что файл изменен, но пока не сделал этого, т.к. сюда тоже нужен контекст, так вышло что конфиг менеджер делался одним из первых еще в V3.x и там небыло передачи многоформатного контекста, поэтому вместо логгера я использовал обычный консольный лог только для критических сообщений, в будущих обновления я добавлю логгер сюда.
+          this.#log('Файл конфигурации изменен.')
         }, 50);
       }
     });
+  }
+
+
+  #log(...args) {
+    if (!this.#context) {
+      console.log(...args);
+    } else {
+      this.#context.log(...args);
+    }
   }
 }
