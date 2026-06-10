@@ -1,16 +1,53 @@
+# 
+# Приватные файлы и ключи безопасности
+# 
 .env
+.env.*
+!.env.example
+wisteriamc
+wisteriamc.pub
+*.private
+*.key
+*.pem
+
+# 
+# Локальные окружения и IDE
+# 
+.osp/
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
+
+# 
+# Кэш, логи и бэкапы
+# 
+backups/
+log/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 
+# Зависимости (Менеджеры пакетов)
+# 
+node_modules/
+vendor/
+.pnpm-store/
 composer.lock
 pnpm-lock.yaml
-package-lock.json
 pnpm-workspace.yaml
+# NiRBES: Использую ласт версии, поэтому в локах нет необходимости!
 
-/wisteriamc
-/wisteriamc.pub
-
-/.osp
-/.idea
-/node_modules
-/vendor
-/backups
-/log
-/public/assets/css/tailwind.css
+# 
+# Компилируемые ассеты
+# 
+public/assets/js/
+public/assets/css/
