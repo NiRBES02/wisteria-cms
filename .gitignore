@@ -4,8 +4,6 @@
 .env
 .env.*
 !.env.example
-wisteriamc
-wisteriamc.pub
 *.private
 *.key
 *.pem
@@ -49,6 +47,6 @@ pnpm-workspace.yaml
 # 
 # Компилируемые ассеты
 # 
-public/assets/js/*
-public/assets/css/*
+public/assets/js/
+public/assets/css/
 !/public/assets/css/nprogress.css
