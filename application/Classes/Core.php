@@ -4,9 +4,11 @@ namespace App\Classes;
 
 if (!defined('devsakura')) exit('denied');
 
+use PDO;
+
 class Core {
   public Config $config;
-  public Database $database;
+  public ?PDO $database = null;
   public Router $router;
   public AuthService $auth;
   public LayoutManager $layoutManager;
@@ -18,11 +20,11 @@ class Core {
     // set_exception_handler([$this, 'handleException']);
     // register_shutdown_function([$this, 'handleFatalError']);
 
-    $this->config        = new Config($this);
-    $this->database      = new Database($this);
-    $this->router        = new Router();
-    $this->auth          = new AuthService($this->database);
-    $this->layoutManager = new LayoutManager($this);
+    $this->config         = new Config($this);
+    $this->database       = (new Database())->getConnection();
+    $this->router         = new Router();
+    $this->auth           = new AuthService($this);
+    $this->layoutManager  = new LayoutManager($this);
   }
 
   public function handleRequest(): void {
@@ -87,4 +89,54 @@ class Core {
       default => $titles[2],
     };
   }
+
+  public static function random(int $length = 10, bool $safe = true): string {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789';
+    if (!$safe) {
+      $chars .= '$()#@!';
+    }
+    $string = '';
+    $len = strlen($chars) - 1;
+    while (strlen($string) < $length) {
+      $string .= $chars[mt_rand(0, $len)];
+    }
+    return $string;
+  }
+
+  public static function ip(): string {
+    $keys = [
+      'HTTP_CF_CONNECTING_IP',
+      'HTTP_X_FORWARDED_FOR',
+      'HTTP_X_REAL_IP',
+      'HTTP_CLIENT_IP',
+      'REMOTE_ADDR'
+    ];
+
+    foreach ($keys as $key) {
+      if (!empty($_SERVER[$key])) {
+        $ips = explode(',', $_SERVER[$key]);
+        $ip = trim($ips[0]);
+
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+          return $ip;
+        }
+      }
+    }
+
+    return '0.0.0.0';
+  }
+
+
+  // public function random(int $length = 10, bool $safe = true): string {
+  //   $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789';
+  //   if (!$safe) {
+  //     $chars .= '$()#@!';
+  //   }
+  //   $string = '';
+  //   $len = strlen($chars) - 1;
+  //   while (strlen($string) < $length) {
+  //     $string .= $chars[mt_rand(0, $len)];
+  //   }
+  //   return $string;
+  // }
 }

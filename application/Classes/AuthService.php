@@ -4,12 +4,15 @@ namespace App\Classes;
 
 if (!defined('devsakura')) exit('denied');
 
+use App\Classes\Core;
+use PDO;
+
 class AuthService {
-  private Database $db;
+  private ?PDO $database;
   private ?User $currentUser = null;
 
-  public function __construct(Database $db) {
-    $this->db = $db;
+  public function __construct(Core $core) {
+    $this->database = $core->database;
     $this->initSession();
   }
 
@@ -18,15 +21,23 @@ class AuthService {
       session_start();
     }
 
-    if (isset($_SESSION['user_id'])) {
-      // Берем pdo из объекта Database (композиция)
-      $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
-      $stmt->execute([$_SESSION['user_id']]);
-      $userData = $stmt->fetch();
+    if (!$this->database) {
+      return;
+    }
 
-      if ($userData) {
-        $this->currentUser = new User($userData);
-      } else {
+    if (isset($_SESSION['user_id'])) {
+      try {
+        $stmt = $this->database->prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+        $stmt->execute([$_SESSION['user_id']]);
+        $userData = $stmt->fetch();
+
+        if ($userData) {
+          $this->currentUser = new User($userData);
+        } else {
+          $this->logout();
+        }
+      } catch (\PDOException $e) {
+        error_log("Auth session init error: " . $e->getMessage());
         $this->logout();
       }
     }
@@ -41,15 +52,24 @@ class AuthService {
   }
 
   public function login(string $login, string $password): bool {
-    $stmt = $this->db->pdo->prepare("SELECT * FROM users WHERE login = ? LIMIT 1");
-    $stmt->execute([$login]);
-    $userData = $stmt->fetch();
-
-    if ($userData && password_verify($password, $userData['password'])) {
-      $_SESSION['user_id'] = $userData['id'];
-      $this->currentUser = new User($userData);
-      return true;
+    if (!$this->database) {
+      return false;
     }
+
+    try {
+      $stmt = $this->database->prepare("SELECT * FROM users WHERE login = ? LIMIT 1");
+      $stmt->execute([$login]);
+      $userData = $stmt->fetch();
+
+      if ($userData && password_verify($password, $userData['password'])) {
+        $_SESSION['user_id'] = $userData['id'];
+        $this->currentUser = new User($userData);
+        return true;
+      }
+    } catch (\PDOException $e) {
+      error_log("Login error: " . $e->getMessage());
+    }
+
     return false;
   }
 
@@ -59,5 +79,23 @@ class AuthService {
     if (session_status() === PHP_SESSION_ACTIVE) {
       session_destroy();
     }
+  }
+
+  /**
+   * Генерирует хэш пароля с использованием алгоритма Bcrypt.
+   */
+  public function genPassword(string $string = ''): string {
+    return password_hash($string, PASSWORD_BCRYPT, ['cost' => 12]);
+  }
+
+  /**
+   * Проверяет, соответствует ли открытый пароль хэшу.
+   */
+  public function checkPassword($password1, $password2): bool {
+    return password_verify($password1, $password2);
+  }
+
+  public static function createTmp() {
+    return Core::random(16);
   }
 }

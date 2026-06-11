@@ -4,6 +4,8 @@ namespace App\Classes;
 
 if (!defined('devsakura')) exit('denied');
 
+use \App\Classes\Core;
+
 class User {
   public int $id;
   public string $uuid;
@@ -18,7 +20,7 @@ class User {
     'premium'   => ['name' => 'Premium', 'color' => 'text-orange-500'],
     'moderator' => ['name' => 'Moderator', 'color' => 'text-blue-500'],
     'admin'     => ['name' => 'Администратор', 'color' => 'text-red-500'],
-    'dev'       => ['name' => 'Разработчик', 'color' => 'text-purple-500 font-bold italic'], // Стили Tailwind 4.1
+    'dev'       => ['name' => 'Разработчик', 'color' => 'text-purple-500 font-bold italic']
   ];
 
   public function __construct(array $data) {
