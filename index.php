@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\Request;
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,7 +12,7 @@ require_once('./init.php');
 try {
   $core = new App\Classes\Core();
 
-  if ($core->router->isAjax()) {
+  if (Request::isAjax()) {
     $core->handleRequest();
   }
 

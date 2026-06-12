@@ -119,15 +119,4 @@ class Router {
     public function getParam(int $index, $default = null) {
         return $this->params[$index] ?? $default;
     }
-
-    public function isAjax(): bool {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-    }
-    public function isPost(): bool {
-        return $this->method === 'POST';
-    }
-    public function isGet(): bool {
-        return $this->method === 'GET';
-    }
 }
