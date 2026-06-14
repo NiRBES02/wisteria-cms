@@ -57,6 +57,26 @@
             <i id="icon-show-password" class="fa-duotone fa-regular fa-eye text-base"></i>
           </button>
         </div>
+        <div class="flex justify-between items-center mt-4">
+          <label class="inline-flex items-center cursor-pointer select-none group">
+            <div class="relative">
+              <input type="checkbox" name="remember" id="remember" value="" class="sr-only peer">
+              <div class="w-9 h-5 bg-zinc-800 rounded-full transition-colors duration-200 
+                peer-checked:bg-purple-500 
+                group-hover:bg-zinc-700 group-hover:peer-checked:bg-purple-500 peer-checked:shadow-full-md peer-checked:shadow-purple-500/50">
+              </div>
+              <div class="absolute top-1 left-1 w-3 h-3 bg-zinc-300 rounded-full transition-all duration-200 
+                peer-checked:translate-x-4 peer-checked:bg-white">
+              </div>
+            </div>
+            <span class="ms-2 text-sm font-medium text-zinc-400 transition-colors duration-200 group-hover:text-zinc-200">
+              Запомнить меня
+            </span>
+          </label>
+          <div>
+            <a href="/auth/forgot" class="text-sm text-zinc-400 hover:text-purple-400 transition-colors duration-200">Забыл пароль?</a>
+          </div>
+        </div>
         <button id="btnLogin" type="submit"
           class="w-full bg-purple-500 hover:bg-purple-400 font-bold py-4 rounded-2xl transition-all hover:shadow-full-md hover:shadow-purple-400/50 uppercase tracking-widest text-xs active:scale-99 duration-200 mt-4 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
           <span>Авторизоваться</span>

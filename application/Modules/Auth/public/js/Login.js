@@ -56,7 +56,7 @@ ds.event.once('content.loaded', () => {
       if (data.notify) {
         await ds.notify(data.notify.message, data.notify.type);
         if (data.notify.type === 'success') {
-          // await Promise.all([ds.content.load('/'), ds.event.emit('auth.loggedIn')]);
+          await Promise.all([ds.content.load('/'), ds.event.emit('auth.loggedIn')]);
           return;
         }
       }

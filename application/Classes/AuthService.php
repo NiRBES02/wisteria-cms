@@ -141,13 +141,22 @@ class AuthService {
    */
   private function createRememberMeSession(int $userId): void {
     $hash = self::createTmp();
+    $currentIp = Core::ip();
 
     try {
-      $stmt = $this->database->prepare("INSERT INTO sessions (hash) VALUES (?)");
-      $stmt->execute([$hash]);
+      $stmt = $this->database->prepare("INSERT INTO sessions (uid, hash, ipCreate, ipLast) VALUES (?, ?, ?, ?)");
+      $stmt->execute([$userId, $hash, $currentIp, $currentIp]);
 
       $cookieValue = $userId . '_' . $hash;
-      setcookie('ds_user', $cookieValue, time() + (86400 * 30), '/', '', false, true);
+
+      setcookie('ds_user', $cookieValue, [
+        'expires'  => time() + (86400 * 30),
+        'path'     => '/',
+        'domain'   => '',
+        'secure'   => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on',
+        'httponly' => true,
+        'samesite' => 'Lax'
+      ]);
     } catch (\PDOException $e) {
       error_log("Failed to create remember me session: " . $e->getMessage());
     }

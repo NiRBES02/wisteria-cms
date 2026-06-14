@@ -19,19 +19,12 @@ class LoginModel {
 
   public function load(): void {
     if (!Request::isAjax() || !Request::isPost()) {
-      $this->core->json([
-        'notify' => ['message' => '403', 'type' => 'error']
-      ]);
+      $this->core->json(['notify' => ['message' => 'Метод не поддерживается', 'type' => 'error']]);
       return;
     }
 
     if ($this->core->auth->isAuth()) {
-      $this->core->json([
-        'notify' => [
-          'message' => 'Вы уже авторизованы',
-          'type' => 'warning'
-        ]
-      ]);
+      $this->core->json(['notify' => ['message' => 'Вы уже авторизованы', 'type' => 'warning']]);
       return;
     }
 
@@ -40,24 +33,13 @@ class LoginModel {
     $remember = isset($_POST['remember']);
 
     if (empty($login) || empty($password)) {
-      $this->core->json([
-        'notify' => [
-          'message' => 'Заполните все поля',
-          'type' => 'warning'
-        ]
-      ]);
+      $this->core->json(['notify' => ['message' => 'Заполните все поля', 'type' => 'warning']]);
       return;
     }
 
     try {
-      $stmt = $this->database->prepare('
-        SELECT login FROM users 
-        WHERE login = :login OR email = :email LIMIT 1
-      ');
-      $stmt->execute([
-        'login' => $login,
-        'email' => $login
-      ]);
+      $stmt = $this->database->prepare('SELECT login FROM users WHERE login = :login OR email = :email LIMIT 1');
+      $stmt->execute(['login' => $login, 'email' => $login]);
       $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (\PDOException $e) {
       $this->core->json([
@@ -67,30 +49,17 @@ class LoginModel {
     }
 
     if (!$userRow) {
-      $this->core->json([
-        'notify' => [
-          'message' => 'Пользователь с таким Логином или E-mail не найден',
-          'type' => 'warning'
-        ]
-      ]);
+      $this->core->json(['notify' => ['message' => 'Пользователь с таким Логином или E-mail не найден', 'type' => 'warning']]);
       return;
     }
 
     $loginResult = $this->core->auth->login($userRow['login'], $password, $remember);
-
     if ($loginResult) {
       $this->updateLastIp($this->core->auth->getUser()->id);
 
-      $this->core->json([
-        'notify' => ['message' => 'Вы успешно авторизовались!', 'type' => 'success']
-      ]);
+      $this->core->json(['notify' => ['message' => 'Вы успешно авторизовались!', 'type' => 'success']]);
     } else {
-      $this->core->json([
-        'notify' => [
-          'message' => 'Неверный пароль',
-          'type' => 'error'
-        ]
-      ]);
+      $this->core->json(['notify' => ['message' => 'Неверный пароль', 'type' => 'error']]);
     }
   }
 
@@ -101,15 +70,8 @@ class LoginModel {
    */
   private function updateLastIp(int $userId): void {
     try {
-      $pUpdate = $this->database->prepare('
-        UPDATE users 
-        SET ipLast = :ipLast 
-        WHERE id = :id
-      ');
-      $pUpdate->execute([
-        'ipLast' => Core::ip(),
-        'id' => $userId
-      ]);
+      $pUpdate = $this->database->prepare('UPDATE users SET ipLast = :ipLast WHERE id = :id');
+      $pUpdate->execute(['ipLast' => Core::ip(), 'id' => $userId]);
     } catch (\PDOException $e) {
       error_log("Failed to update last IP for user {$userId}: " . $e->getMessage());
     }

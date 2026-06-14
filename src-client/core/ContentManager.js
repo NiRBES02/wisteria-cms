@@ -24,9 +24,6 @@ class ContentManager {
 
   async fetch(url) {
     try {
-      nProgress.start();
-      nProgress.configure({ showSpinner: false });
-
       const urlObj = new URL(url, window.location.origin);
 
       const targetUrl = new URL(urlObj.pathname + urlObj.search, window.location.origin);
@@ -38,15 +35,12 @@ class ContentManager {
 
       if (!res.ok) throw new Error(`Response status: ${res.status}`);
 
-      // Проверяем тип контента
       const contentType = res.headers.get('Content-Type');
       if (contentType && contentType.includes('image/')) {
-        return; // Если пришла картинка, ничего не парсим и не ломаем
+        return;
       }
 
       const json = await res.json();
-
-      console.log(json)
 
       if (this._shouldRedirectOnNotify(json, urlObj)) {
         await this.load('/');
@@ -58,6 +52,9 @@ class ContentManager {
         await Notify(message, type);
       }
 
+      nProgress.start();
+      nProgress.configure({ showSpinner: false });
+
       await this.fullUpdate(json, urlObj);
     } catch (e) {
       console.error('[ContentManager] Fetch error:', e);
@@ -67,7 +64,7 @@ class ContentManager {
   }
 
   _shouldRedirectOnNotify(json, urlObj) {
-    return (json?.data?.notify && !json?.layout?.content && window.location.href === urlObj.href);
+    return !!(json?.notify && !json?.layout?.content && window.location.href === urlObj.href);
   }
 
   async fullUpdate(data, url) {
@@ -104,7 +101,7 @@ class ContentManager {
   async _updateDOM(layoutData, url) {
     Event.emit('content.unloaded');
     if (url) {
-      history.pushState(null, '', url.href);
+      history.replaceState(null, '', url.href);
       this.currentUrl = url.href;
     }
 
