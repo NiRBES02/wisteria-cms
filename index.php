@@ -12,7 +12,9 @@ require_once('./init.php');
 try {
   $core = new App\Classes\Core();
 
-  if (Request::isAjax()) {
+  $currentUri = App\Classes\Request::uri();
+
+  if (Request::isAjax() || str_contains($currentUri, '/skin/') || str_contains($currentUri, '/api/')) {
     $core->handleRequest();
   }
 

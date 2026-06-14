@@ -4,7 +4,7 @@ import PluginManager from './utils/plugin-manager.js';
 import { RowBuilder } from './utils/row-builder.js';
 import chalk from 'chalk';
 
-import stripAnsi from './utils/strip-ansi.js';
+import { stripAnsi } from './utils/strip-ansi.js';
 
 const cli = new CLI({
   width: process.stdout.columns || 80,

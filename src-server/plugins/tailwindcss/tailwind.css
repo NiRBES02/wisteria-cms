@@ -1,9 +1,7 @@
 @import "tailwindcss" source(none);
 @import "flowbite/src/themes/default";
 
-@source "../../../client";
-
-
+@source "../../../src-client/";
 @source "../../../application";
 @source "../../../public";
 
@@ -18,15 +16,39 @@
 @theme {
   --font-inter: 'Inter';
 
+  --shadow-full: 
+    0 0 4px 0 rgba(0, 0, 0, 0.12),
+    0 0 8px 0 rgba(0, 0, 0, 0.04);
 
-  --shadow-full: 0 0 10px 0 rgb(0 0 0 / 0.15), 0 0 4px 0 rgb(0 0 0 / 0.1);
+  /* Микро-свечение (кнопки, мелкие элементы) */
+  --shadow-full-xs: 
+    0 0 2px 0 rgba(0, 0, 0, 0.12),
+    0 0 4px 0 rgba(0, 0, 0, 0.06);
 
-  --shadow-full-xs: 0 0 2px 0 rgb(0 0 0 / 0.1);
-  --shadow-full-sm: 0 0 5px 0 rgb(0 0 0 / 0.15);
-  --shadow-full-md: 0 0 12px 0 rgb(0 0 0 / 0.2);
-  --shadow-full-lg: 0 0 25px 0 rgb(0 0 0 / 0.15);
-  --shadow-full-xl: 0 0 35px 2px rgb(0 0 0 / 0.2);
-  --shadow-full-2xl: 0 0 60px 5px rgb(0 0 0 / 0.3);
+  /* Легкое свечение (инпуты, небольшие плашки) */
+  --shadow-full-sm: 
+    0 0 4px 0 rgba(0, 0, 0, 0.1),
+    0 0 8px 0 rgba(0, 0, 0, 0.05);
+
+  /* Средний объем (карточки, меню) */
+  --shadow-full-md: 
+    0 0 6px 0 rgba(0, 0, 0, 0.1),
+    0 0 12px 0 rgba(0, 0, 0, 0.05);
+
+  /* Выраженное парение (модалки, крупные блоки) */
+  --shadow-full-lg: 
+    0 0 8px 0 rgba(0, 0, 0, 0.1),
+    0 0 16px 0 rgba(0, 0, 0, 0.05);
+
+  /* Глубокий неоновый эффект (XL) */
+  --shadow-full-xl: 
+    0 0 12px 0 rgba(0, 0, 0, 0.1),
+    0 0 24px 0 rgba(0, 0, 0, 0.05);
+
+  /* Максимальное масштабное свечение (2XL) */
+  --shadow-full-2xl: 
+    0 0 16px 0 rgba(0, 0, 0, 0.1),
+    0 0 64px 0 rgba(0, 0, 0, 0.05);
 }
 
 @layer utilities {

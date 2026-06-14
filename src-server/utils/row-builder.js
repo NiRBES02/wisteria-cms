@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import stripAnsi from './strip-ansi.js';
+import { stripAnsi } from './strip-ansi.js';
 
 /**
  * Класс для построения форматированных строк в терминале с поддержкой колонок,

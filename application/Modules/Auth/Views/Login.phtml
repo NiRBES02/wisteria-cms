@@ -58,16 +58,16 @@
           </button>
         </div>
         <button id="btnLogin" type="submit"
-          class="w-full bg-purple-500 hover:bg-purple-400 text-white font-bold py-4 rounded-2xl transition-all hover:shadow hover:shadow-purple-400 uppercase tracking-widest text-xs active:scale-99 hover:scale-101 duration-100 mt-4 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+          class="w-full bg-purple-500 hover:bg-purple-400 font-bold py-4 rounded-2xl transition-all hover:shadow-full-md hover:shadow-purple-400/50 uppercase tracking-widest text-xs active:scale-99 duration-200 mt-4 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
           <span>Авторизоваться</span>
         </button>
       </form>
 
       <div class="mt-8 text-center">
-        <span class="text-zinc-500 text-sm font-bold uppercase tracking-wide">
+        <span class="text-zinc-600 text-sm font-semibold uppercase tracking-wide">
           Нет аккаунта?
-          <a href="/?router=auth&controller=register"
-            class="text-white hover:text-purple-400 transition-colors ml-1 duration-100">Зарегистрироваться</a>
+          <a href="/auth/register"
+            class="text-white hover:text-purple-400 transition-colors ml-1 duration-200">Зарегистрироваться</a>
         </span>
       </div>
     </div>

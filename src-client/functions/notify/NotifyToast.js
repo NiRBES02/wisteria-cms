@@ -43,8 +43,8 @@ export class NotifyToast {
       this.isPaused = !this.isPaused;
       if (!this.isPaused) this.lastTick = Date.now();
 
-      this.el.classList.toggle('ring-2', this.isPaused);
-      this.el.classList.toggle('ring-purple-500/50', this.isPaused);
+      this.el.classList.toggle('ring-4', this.isPaused);
+      // this.el.classList.toggle('ring-purple-500/50', this.isPaused);
     });
 
     this._startTimer(progressEl);

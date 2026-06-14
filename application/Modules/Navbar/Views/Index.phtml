@@ -8,14 +8,10 @@
   <div class="flex items-center gap-4">
     <? if (!$this->auth->isAuth()): ?>
       <a href="/auth"
-        class="hidden md:flex items-center gap-2 bg-purple-400/50 hover:bg-purple-400 px-6 py-2 rounded text-xs font-bold uppercase tracking-[0.1rem] transition-all duration-200 hover:shadow-full-lg hover:shadow-purple-400 border border-purple-400/50 backdrop-blur-xs active:scale-95 cursor-pointer">
+        class="hidden md:flex items-center gap-2 bg-purple-500 hover:bg-purple-400/25 px-6 py-2 rounded text-xs font-bold uppercase tracking-[0.1rem] transition-all duration-200 hover:shadow-full-md hover:shadow-purple-400/50 hover:ring hover:ring-purple-400/50 backdrop-blur-xs active:scale-95 cursor-pointer hover:text-purple-400">
         <span>Войти</span>
       </a>
 
-      <a href="/auth/register"
-        class="hidden md:flex items-center gap-2 px-6 py-2 rounded text-xs font-bold uppercase tracking-[0.1rem] transition-all duration-200 hover:shadow-full-lg hover:shadow-purple-400 border border-purple-400/50 backdrop-blur-xs active:scale-95 cursor-pointer">
-        <span>Регистрация</span>
-      </a>
       <a href="/auth"
         class="md:hidden flex justify-center items-center w-11 h-11 bg-violet-600/10 border border-violet-500/30 rounded-lg text-violet-400 backdrop-blur-xs">
         <i class="fa-duotone fa-regular fa-arrow-right-to-bracket"></i>
@@ -25,7 +21,7 @@
         class="size-10 border border-violet-400/50 rounded-lg relative overflow-hidden cursor-pointer"
         type="button">
         <div class="absolute inset-0">
-          <img src="/?router=skin&mode=mini">
+          <img src="/skin/api/index?mode=mini">
         </div>
       </button>
       <div id="ddAvatarMenu" class="z-20 hidden max-w-sm w-full px-2 transition-opacity duration-300">
@@ -39,7 +35,7 @@
             </div>
             <div>
               <div class="tracking-wide font-semibold text-2xl">
-                <?= $this->user->login; ?>
+                <?= $this->auth->login; ?>
               </div>
               <div class="h-0.5 w-10 bg-violet-400 shadow-full-2xl shadow-violet-400"></div>
             </div>

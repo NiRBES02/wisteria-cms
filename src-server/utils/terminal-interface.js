@@ -1,5 +1,5 @@
 import readline from 'node:readline';
-import stripAnsi from './strip-ansi.js';
+import { stripAnsi } from './strip-ansi.js';
 
 /**
  * Класс для работы с интерфейсом терминала, обеспечивающий отрисовку многострочного футера,

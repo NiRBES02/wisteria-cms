@@ -37,6 +37,13 @@ class ContentManager {
       });
 
       if (!res.ok) throw new Error(`Response status: ${res.status}`);
+
+      // Проверяем тип контента
+      const contentType = res.headers.get('Content-Type');
+      if (contentType && contentType.includes('image/')) {
+        return; // Если пришла картинка, ничего не парсим и не ломаем
+      }
+
       const json = await res.json();
 
       console.log(json)
