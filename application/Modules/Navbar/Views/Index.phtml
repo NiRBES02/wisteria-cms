@@ -30,19 +30,18 @@
           <div class="flex items-center gap-4">
             <div>
               <div class="">
-                <img src="/?router=skin&mode=mini" class="size-12 rounded-lg">
+                <img src="/skin/api/index?mode=mini" class="size-12 rounded-lg">
               </div>
             </div>
             <div>
               <div class="tracking-wide font-semibold text-2xl">
-                <?= $this->auth->login; ?>
+                <?= $this->auth->getUser()->login; ?>
               </div>
-              <div class="h-0.5 w-10 bg-violet-400 shadow-full-2xl shadow-violet-400"></div>
+              <div class="h-0.5 w-10 bg-violet-400 shadow-full-sm shadow-violet-400 rounded-full"></div>
             </div>
           </div>
-
           <div class="grid grid-cols-2 md:flex gap-4">
-            <a href="/?router=profile"
+            <a href="/profile"
               class="flex items-center justify-center h-10 hover:bg-zinc-950/50 border border-zinc-600/50  rounded-xl text-2xs md:text-md font-semibold uppercase tracking-widest cursor-pointer transition-all md:flex-1">
               <span>Кабинет</span>
             </a>
@@ -55,7 +54,6 @@
             </button>
           </div>
         </div>
-
       </div>
     <? endif; ?>
 

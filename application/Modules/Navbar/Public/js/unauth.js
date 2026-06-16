@@ -1,0 +1,1 @@
+ds.event.once('content.loaded', () => {});

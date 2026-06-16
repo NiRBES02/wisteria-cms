@@ -27,13 +27,13 @@ class LayoutManager {
   }
 
   private function loadDefaults(): void {
-    $isAuth = 'unauth';
+    $isAuth = $this->core->auth->isAuth() ? 'Auth' : 'Unauth';
 
     $this->defaults = [
       'layout' => 'main',
       'navbar' => ['navbar' => $this->core->html(_Modules . '/Navbar/Views/Index.phtml')],
       'footer' => [],
-      'navbarScripts' => [/*"/app/modules/navbar/public/js/{$isAuth}.js"*/],
+      'navbarScripts' => ["/application/modules/navbar/public/js/{$isAuth}.js"],
       'footerScripts' => [],
       'contentScripts' => [],
     ];

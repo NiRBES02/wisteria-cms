@@ -3,6 +3,7 @@ import ContentRouter from './ContentRouter.js';
 
 import Event from '@f/Event';
 import NProgress from '@u/NProgress';
+import Flowbite from '@u/Flowbite';
 
 import Notify from '../functions/Notify.js';
 
@@ -12,6 +13,7 @@ class Client {
     this.event = Event;
     this.np = NProgress;
     this.notify = Notify;
+    this.flowbite = Flowbite;
   }
 }
 

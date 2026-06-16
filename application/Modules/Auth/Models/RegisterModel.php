@@ -57,7 +57,7 @@ class RegisterModel {
     }
 
     if (in_array(mb_strtolower($this->login, 'UTF-8'), array_map('mb_strtolower', $rejectLogins), true)) {
-      $this->core->json(['notify' => ['message' => 'Запрещено использовать данный логин на проекте<br>См. <a href="https://github.com/NiRBES02/wisteria-cms/blob/main/app/modules/auth/models/reject_login.php" target="_blank" class="text-zinc-200 hover:text-purple-400 font-medium inline-flex items-center hover:underline hover:underline-offset-4">GitHub:reject_login<span class="text-zinc-400 text-2xs"><i class="fa-solid fa-arrow-up-right"></i></span></a>', 'type' => 'warning']]);
+      $this->core->json(['notify' => ['message' => 'Запрещено использовать данный логин на проекте<br>См. <a href="https://github.com/NiRBES02/wisteriamc/blob/dev/application/Modules/Auth/Models/RejectLogin.php" target="_blank" class="text-zinc-400 hover:text-purple-400 font-medium inline-flex items-center hover:underline hover:underline-offset-4">GitHub:RejectLogin<span class="text-zinc-400 text-2xs"><i class="fa-solid fa-arrow-up-right"></i></span></a>', 'type' => 'warning']]);
       return;
     }
 

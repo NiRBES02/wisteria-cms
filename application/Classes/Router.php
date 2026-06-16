@@ -91,15 +91,42 @@ class Router {
 
         $actionFull = $vars['action'];
         $segments = explode('/', $actionFull);
-        $action = $segments[0];
-
-        $this->controller = ucfirst($action);
-        $this->params = array_slice($segments, 1);
 
         if ($handler === 'module_api') {
             $this->targetType = 'model';
         } else {
             $this->targetType = 'controller';
+        }
+
+        $subNamespace = $this->targetType === 'model' ? "Models\\" : "Controllers\\";
+        $suffix = $this->targetType === 'model' ? "Model" : "Controller";
+
+        if ($handler === 'module_api') {
+            $action = $segments[0];
+            $this->controller = ucfirst($action);
+            $this->params = array_slice($segments, 1);
+            return;
+        }
+
+        $matchedController = null;
+        $paramStartIndex = 0;
+
+        foreach ($segments as $index => $segment) {
+            $checkClass = "App\\Modules\\" . ucfirst($this->module) . "\\" . $subNamespace . ucfirst($segment) . $suffix;
+
+            if (class_exists($checkClass)) {
+                $matchedController = ucfirst($segment);
+                $paramStartIndex = $index + 1;
+                break;
+            }
+        }
+
+        if ($matchedController !== null) {
+            $this->controller = $matchedController;
+            $this->params = array_slice($segments, $paramStartIndex);
+        } else {
+            $this->controller = 'Index';
+            $this->params = $segments;
         }
     }
 

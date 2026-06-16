@@ -1,3 +1,5 @@
+// TODO: СМ. Main.js
+
 class ScriptLoader {
   constructor() {
     this.loadedScripts = new Set();

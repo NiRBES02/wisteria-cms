@@ -12,3 +12,10 @@ if (document.readyState === 'loading') {
 }
 
 export default Client;
+
+/*
+TODO:
+Добавить уникальную систему сборки скриптов модулей в appliction директориях:
+Например есть файл /application/modules/navbar/public/js/auth.js, сделать его как src файл и билдить уже для рендера.
+Зачем это нужно? Тянуть весь flowbite слишком жирно, хотя она уже есть через `ds.flowbite.*`, все равно неправильно так делать... 
+*/
