@@ -126,6 +126,34 @@ class Core {
     return '0.0.0.0';
   }
 
+  public static function login2uuid(string $username): string {
+    $hash = md5("OfflinePlayer:" . $username, true);
+    $bytes = unpack('C16', $hash);
+
+    $bytes[7] = ($bytes[7] & 0x0f) | 0x30;
+    $bytes[9] = ($bytes[9] & 0x3f) | 0x80;
+
+    return sprintf(
+      '%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x',
+      $bytes[1],
+      $bytes[2],
+      $bytes[3],
+      $bytes[4],
+      $bytes[5],
+      $bytes[6],
+      $bytes[7],
+      $bytes[8],
+      $bytes[9],
+      $bytes[10],
+      $bytes[11],
+      $bytes[12],
+      $bytes[13],
+      $bytes[14],
+      $bytes[15],
+      $bytes[16]
+    );
+  }
+
 
   // public function random(int $length = 10, bool $safe = true): string {
   //   $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789';
