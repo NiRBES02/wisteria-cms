@@ -23,7 +23,7 @@
 Thumbs.db
 
 # 
-# Кэш, логи и бэкапы
+# Кэш, логи, бэкапы и загрузки
 # 
 backups/
 log/
@@ -32,6 +32,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+public/uploads/*
+!/public/uploads/default
 
 # 
 # Зависимости (Менеджеры пакетов)

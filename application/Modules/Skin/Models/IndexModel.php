@@ -2,7 +2,6 @@
 
 namespace App\Modules\Skin\Models;
 
-use App\Classes\Request;
 use App\Classes\User;
 use PDO;
 
@@ -14,8 +13,10 @@ class IndexModel extends SkinModel {
 
     $requestUser = isset($_REQUEST['user']) ? trim((string) $_REQUEST['user']) : null;
     $hash = isset($_REQUEST['hash']) ? trim((string) $_REQUEST['hash']) : null;
-    $isMini = isset($_REQUEST['mode']);
-    $suffix = $isMini ? '_mini' : '';
+
+    $isHead = isset($_REQUEST['mode']);
+    $suffix = $isHead ? '_head' : '';
+    $folder = $isHead ? 'heads' : 'skins';
 
     while (ob_get_level() > 0) {
       ob_end_clean();
@@ -30,11 +31,12 @@ class IndexModel extends SkinModel {
     }
 
     if ($hash) {
-      $path = $this->findSkinByHash($hash, $suffix);
+      $path = $this->findSkinByHash($hash, $suffix, $folder);
     } elseif ($targetUser && isset($targetUser->login, $targetUser->skin)) {
       $login = $targetUser->login;
       $userHash = $targetUser->skin;
-      $path = _Uploads . "/users/{$login}/skins/{$userHash}{$suffix}.png";
+
+      $path = _Uploads . "/users/{$login}/{$folder}/{$userHash}{$suffix}.png";
     } else {
       $path = _Uploads . "/default/skins/default{$suffix}.png";
     }
@@ -47,17 +49,14 @@ class IndexModel extends SkinModel {
       }
     }
 
-    // --- ОЧИСТКА БУФЕРА ВЫВОДА PHP ---
     if (ini_get('zlib.output_compression')) {
       @ini_set('zlib.output_compression', 'Off');
     }
 
-    // Закрываем и стираем все буферы, включая ob_start() из Core.php
     while (ob_get_level() > 0) {
       ob_end_clean();
     }
 
-    // Отправляем абсолютно чистые бинарные заголовки
     header('Content-Type: image/png');
     header('Content-Length: ' . filesize($path));
     header('Access-Control-Allow-Origin: *');
@@ -89,11 +88,10 @@ class IndexModel extends SkinModel {
     return null;
   }
 
-  private function findSkinByHash(string $hash, string $suffix): string {
+  private function findSkinByHash(string $hash, string $suffix, string $folder): string {
     $pathsToCheck = [
-      _Uploads . "/users/*/skins/{$hash}{$suffix}.png",
-      _Uploads . "/users/skins/{$hash}{$suffix}.png",
-      _Uploads . "/skins/{$hash}{$suffix}.png"
+      _Uploads . "/users/*/{$folder}/{$hash}{$suffix}.png",
+      _Uploads . "/{$folder}/{$hash}{$suffix}.png"
     ];
 
     foreach ($pathsToCheck as $pattern) {

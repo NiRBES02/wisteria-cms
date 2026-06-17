@@ -1,0 +1,17 @@
+<div class="bg-zinc-950/75 border border-zinc-900 rounded-2xl p-4 h-32 flex relative overflow-hidden">
+    <div class="flex items-center gap-6">
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-linear-to-r from-purple-500 to-purple-200 rounded-full blur opacity-25 group-hover:opacity-50 transition"></div>
+            <img src="/skin/api/index?mode=mini" class="relative size-18 md:size-24 rounded-full border-2 border-zinc-800 object-cover">
+        </div>
+        <div class="flex flex-col">
+            <div>
+                <div class="text-4xl font-medium"><?= $this->auth->getUser()->login; ?></div>
+            </div>
+            <!-- <div>
+                <span class="px-2 py-0.5 ring-3 border border-red-500/50 ring-red-500/25 text-red-500 rounded text-2xs bg-red-500/10">Администратор</span>
+            </div> -->
+        </div>
+    </div>
+
+</div>

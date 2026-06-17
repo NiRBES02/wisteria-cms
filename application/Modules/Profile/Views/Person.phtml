@@ -1,0 +1,55 @@
+<div class="flex flex-col md:flex-row gap-4 md:h-full">
+  <div class="shrink-0">
+    <div class="md:max-w-xs w-full">
+      <div class="rounded-2xl bg-zinc-950/75 border border-zinc-900 p-4 space-y-4">
+        <div class="overflow-hidden min-h-64 flex items-center justify-center">
+          <canvas id="skin" class="max-w-full max-h-full"></canvas>
+        </div>
+        <form id="uploadSkinForm" class="space-y-4">
+          <input type="file" id="skinInput" name="image" accept="image/*" class="hidden">
+          <label for="skinInput" id="skinLabel"
+            class="flex items-center justify-center gap-3 w-full py-3.5 bg-purple-600 hover:bg-purple-500 transition-all cursor-pointer rounded-xl font-black uppercase tracking-wide active:scale-95 text-xs">
+            <span>Обновить скин</span>
+          </label>
+          <!-- <div class="grid grid-cols-2 md:flex gap-4">
+                        <label
+                            class="flex items-center justify-center h-10 bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 border border-zinc-800 rounded-xl text-2xs font-bold uppercase tracking-widest cursor-pointer transition-all md:flex-1">
+                            <span>Плащ</span>
+                        </label>
+                        <label
+                            class="flex items-center justify-center h-10 bg-zinc-800/50 hover:bg-zinc-800 text-zinc-400 border border-zinc-800 rounded-xl text-2xs md:text-lg font-bold uppercase tracking-widest cursor-pointer transition-all md:size-10">
+                            <span class="md:hidden">Управление скинами</span>
+                            <span class="hidden md:block"><i class="fa-duotone fa-regular fa-gear"></i></span>
+                        </label>
+                    </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-4 overflow-y-auto scrollbar-thin scrollbar-track-zinc-950 scrollbar-purple-400 gap-4 w-full">
+    <? if (!empty($skins)): ?>
+      <? foreach ($skins as $skin): ?>
+        <div class="md:max-w-xs w-full">
+          <div class="relative rounded-2xl bg-zinc-950 border border-zinc-900 p-4 space-y-4">
+            <div class="overflow-hidden min-h-32 flex items-center justify-center">
+              <canvas data-skin-hash="<?= $skin; ?>" class="max-w-full max-h-full"></canvas>
+            </div>
+            <button
+              class="bg-zinc-950 w-full rounded-lg h-8 border border-zinc-900 text-sm text-zinc-400 cursor-pointer hover:bg-zinc-900">Применить</button>
+            <!-- <div class="absolute inset-0 bg-zinc-950/50 backdrop-blur-sm flex justify-center items-center">
+                        <div class="text-center">
+                            <div class="text-red-500 font-semibold">Заблокирован</div>
+                            <div class="text-2xs">Нарушени правил</div>
+                        </div>
+                    </div> -->
+          </div>
+        </div>
+      <? endforeach; ?>
+    <? else: ?>
+      <div class="col-span-full">
+        <div class="border border-zinc-900 min-h-86 rounded-2xl flex justify-center items-center bg-zinc-950/75">Вы не устанавливали еще скинов!</div>
+      </div>
+    <? endif; ?>
+  </div>
+
+</div>

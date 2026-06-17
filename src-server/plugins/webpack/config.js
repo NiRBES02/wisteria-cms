@@ -63,25 +63,23 @@ export default {
   optimization: {
     splitChunks: {
       chunks: 'all',
-      minSize: 20000,
+      minSize: 0,
       minRemainingSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 30,
-      maxInitialRequests: 30,
-      enforceSizeThreshold: 50000,
       cacheGroups: {
-        flowbite: {
-          test: /[\\/]node_modules[\\/]flowbite[\\/]/,
-          name: 'npm.flowbite',
-          chunks: 'all',
-          priority: 30,
-          enforce: true,
-        },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           name(module) {
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-            return `npm.${packageName.replace('@', '')}`;
+            const match = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
+            if (!match) return 'npm.vendor';
+
+            let packageName = match[1];
+
+            if (packageName.startsWith('@')) {
+              const parts = module.context.split('node_modules' + path.sep);
+              const subParts = parts[1].split(path.sep);
+              packageName = `${subParts[0]}/${subParts[1]}`;
+            }
+            return `npm.${packageName.replace(/\//g, '_')}`;
           },
           priority: 20,
           enforce: true,
