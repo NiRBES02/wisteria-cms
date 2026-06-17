@@ -10,17 +10,27 @@ class ScriptLoader {
     };
   }
 
-  shouldLoad(newScripts, scriptType, currentUrl) {
+  shouldLoad(newScripts, scriptType, htmlChanged) {
     const active = this.activeScripts[scriptType];
+    if (htmlChanged) return true;
     if (active.size === 0) return true;
-    if (currentUrl && currentUrl !== window.location.href) return true;
     if (newScripts.length !== active.size) return true;
 
     for (const script of newScripts) {
       if (!active.has(script)) return true;
     }
+
     return false;
   }
+
+
+
+  resetActiveScripts() {
+    this.activeScripts.navbar.clear();
+    this.activeScripts.content.clear();
+    this.activeScripts.footer.clear();
+  }
+
 
 
   async load(scripts, scriptType = 'content') {
@@ -33,11 +43,6 @@ class ScriptLoader {
 
     const promises = scripts.map(src => {
       return new Promise(resolve => {
-        if (this.loadedScripts.has(src) && this.activeScripts[scriptType].has(src)) {
-          resolve();
-          return;
-        }
-
         const script = document.createElement('script');
         const cacheVersion = Date.now();
         script.src = src.includes('?') ? `${src}&v=${cacheVersion}` : `${src}?v=${cacheVersion}`;
@@ -61,6 +66,7 @@ class ScriptLoader {
 
     await Promise.all(promises);
   }
+
 
   remove(scriptType) {
     const oldArea = document.getElementById(`scripts-${scriptType}`);

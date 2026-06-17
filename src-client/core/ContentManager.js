@@ -89,14 +89,19 @@ class ContentManager {
 
     for (const type of scriptTypes) {
       let scripts = layout[`${type}Scripts`] || layout[`${type}ScriptsDefault`];
+      const hasScripts = scripts && Array.isArray(scripts) && scripts.length > 0;
 
-      if (scripts && Array.isArray(scripts) && scripts.length > 0 && result[`${type}Changed`]) {
-        if (ScriptLoader.shouldLoad(scripts, type, this.currentUrl)) {
+      if (hasScripts) {
+        if (ScriptLoader.shouldLoad(scripts, type, result[`${type}Changed`])) {
           await ScriptLoader.load(scripts, type);
         }
+      } else {
+        ScriptLoader.remove(type);
       }
     }
   }
+
+
 
   async _updateDOM(layoutData, url) {
     Event.emit('content.unloaded');
@@ -107,6 +112,9 @@ class ContentManager {
 
     if (this.currentLayoutName !== layoutData.layoutName) {
       document.body.innerHTML = layoutData.layoutTemplate;
+
+      ScriptLoader.resetActiveScripts();
+
       this.currentLayoutName = layoutData.layoutName;
       this.currentLayoutTemplate = layoutData.layoutTemplate;
       this.currentNavbar = {}; this.currentContent = {}; this.currentFooter = {};
@@ -115,6 +123,7 @@ class ContentManager {
 
     return await this._partialUpdate(layoutData);
   }
+
 
 
   _isValidElementId(key) {
@@ -141,7 +150,6 @@ class ContentManager {
 
 
   async _updateElementById(elementId, newContent, currentState) {
-    // Пропускаем если содержимое не изменилось
     if (currentState[elementId] === newContent) {
       return;
     }
