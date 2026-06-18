@@ -55,7 +55,7 @@ task_git() {
         git init >> "$LOG_GIT" 2>&1
         git remote add origin "$REPO_URL" >> "$LOG_GIT" 2>&1
         git fetch origin >> "$LOG_GIT" 2>&1
-        git checkout -f origin/main >> "$LOG_GIT" 2>&1 || git checkout -f origin/master >> "$LOG_GIT" 2>&1
+        git checkout -f origin/dev >> "$LOG_GIT" 2>&1 || git checkout -f origin/master >> "$LOG_GIT" 2>&1
     else
         echo "Репозиторий уже установлен." >> "$LOG_GIT"
     fi
