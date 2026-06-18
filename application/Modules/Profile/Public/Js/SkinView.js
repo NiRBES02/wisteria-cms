@@ -29,7 +29,7 @@ ds.event.once('content.loaded', async () => {
 });
 
 
-ds.event.once('content.loaded', async () => {
+ds.event.on('content.loaded', async () => {
   const skinElements = document.querySelectorAll('[data-skin-hash]');
 
   if (!skinElements.length) return;
