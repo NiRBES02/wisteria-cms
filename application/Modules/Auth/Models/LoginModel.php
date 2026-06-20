@@ -44,7 +44,7 @@ class LoginModel {
     }
 
     try {
-      $stmt = $this->database->prepare('SELECT login FROM users WHERE login = :login OR email = :email LIMIT 1');
+      $stmt = $this->database->prepare('SELECT login, email FROM users WHERE login = :login OR email = :email LIMIT 1');
       $stmt->execute(['login' => $login, 'email' => $login]);
       $userRow = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (\PDOException $e) {
@@ -61,7 +61,7 @@ class LoginModel {
 
     $loginResult = $this->core->auth->login($userRow['login'], $password, $remember);
     if ($loginResult) {
-      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to('nirbes02@mail.ru')->subject('Выполнен вход')->body($this->core->html(_Modules . '/Auth/Views/MailMessageLogin.phtml', [
+      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to($userRow['email'])->subject('Выполнен вход')->body($this->core->html(_Modules . '/Auth/Views/MailMessageLogin.phtml', [
         'browser' => $client['browser'],
         'ip' => Core::ip(),
         'date' => Core::formatDate()

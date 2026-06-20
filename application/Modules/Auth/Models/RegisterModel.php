@@ -6,12 +6,14 @@ use App\Classes\Core;
 use App\Classes\Request;
 use PDO;
 use Exception;
+use App\Classes\Mailer;
 
 if (!defined('devsakura')) exit('denied');
 
 class RegisterModel {
   protected Core $core;
   protected PDO $database;
+  protected Mailer $mailer;
 
   private string $login = '';
   private string $email = '';
@@ -21,6 +23,7 @@ class RegisterModel {
   public function __construct(Core $core) {
     $this->core = $core;
     $this->database = $core->database;
+    $this->mailer = new Mailer($_ENV['MAIL_HOST'], $_ENV['MAIL_USER'], $_ENV['MAIL_PASS'], (int)$_ENV['MAIL_PORT']);
   }
 
   public function load(): void {
@@ -103,6 +106,10 @@ class RegisterModel {
       }
 
       $this->database->commit();
+
+      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to($this->email)->subject('Успешная регистрация!')->body($this->core->html(_Modules . '/Auth/Views/MailMessageRegister.phtml', [
+        'login' => $this->login
+      ]))->send();
     } catch (Exception $e) {
       if ($this->database->inTransaction()) {
         $this->database->rollBack();
