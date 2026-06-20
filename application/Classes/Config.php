@@ -11,7 +11,7 @@ class Config {
 
   public function __construct(Core $core) {
     $this->core = $core;
-    $this->assets   = $this->loadConfigFile(_Configs . '/assets.php');
+    $this->assets   = $this->loadConfigFile(_Configs . '/Assets.php');
   }
 
   /**
