@@ -33,7 +33,7 @@ class LayoutManager {
       'layout' => 'main',
       'navbar' => ['navbar' => $this->core->html(_Modules . '/Navbar/Views/Index.phtml')],
       'footer' => [],
-      'navbarScripts' => ["/application/modules/navbar/public/js/{$isAuth}.js"],
+      'navbarScripts' => ["/application/Modules/Navbar/Public/Js/{$isAuth}.js"],
       'footerScripts' => [],
       'contentScripts' => [],
     ];
