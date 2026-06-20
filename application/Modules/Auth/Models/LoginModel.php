@@ -4,6 +4,7 @@ namespace App\Modules\Auth\Models;
 
 use App\Classes\Core;
 use App\Classes\Request;
+use App\Classes\Mailer;
 use PDO;
 
 if (!defined('devsakura')) exit('denied');
@@ -11,10 +12,12 @@ if (!defined('devsakura')) exit('denied');
 class LoginModel {
   protected Core $core;
   protected PDO $database;
+  protected Mailer $mailer;
 
   public function __construct(Core $core) {
     $this->core = $core;
     $this->database = $core->database;
+    $this->mailer = new Mailer($_ENV['MAIL_HOST'], $_ENV['MAIL_USER'], $_ENV['MAIL_PASS'], (int)$_ENV['MAIL_PORT']);
   }
 
   public function load(): void {
@@ -55,6 +58,7 @@ class LoginModel {
 
     $loginResult = $this->core->auth->login($userRow['login'], $password, $remember);
     if ($loginResult) {
+      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to('nirbes02@mail.ru')->subject('Выполнен вход')->body('В ваш аккаунт выполнен вход')->send();
       $this->updateLastIp($this->core->auth->getUser()->id);
 
       $this->core->json(['notify' => ['message' => 'Вы успешно авторизовались!', 'type' => 'success']]);
