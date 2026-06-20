@@ -38,11 +38,11 @@ class IndexModel extends SkinModel {
 
       $path = _Uploads . "/users/{$login}/{$folder}/{$userHash}{$suffix}.png";
     } else {
-      $path = _Uploads . "/default/skins/default{$suffix}.png";
+      $path = $this->getDefaultPath($isHead);
     }
 
     if (!file_exists($path)) {
-      $path = _Uploads . "/default/skins/default{$suffix}.png";
+      $path = $this->getDefaultPath($isHead);
       if (!file_exists($path)) {
         http_response_code(404);
         exit('Skin not found');
@@ -66,6 +66,18 @@ class IndexModel extends SkinModel {
     flush();
     readfile($path);
     exit;
+  }
+
+  /**
+   * Возвращает путь к дефолтным файлам из одной папки
+   */
+  private function getDefaultPath(bool $isHead): string {
+    if ($isHead) {
+      // /uploads/default/skins/default_mini.png
+      return _Uploads . "/default/skins/default_mini.png";
+    }
+    // /uploads/default/skins/default.png
+    return _Uploads . "/default/skins/default.png";
   }
 
   private function getUserByLogin(string $login): ?User {
@@ -101,6 +113,6 @@ class IndexModel extends SkinModel {
       }
     }
 
-    return _Uploads . "/default/skins/default{$suffix}.png";
+    return $this->getDefaultPath(!empty($suffix));
   }
 }
