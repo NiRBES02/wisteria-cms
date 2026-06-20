@@ -11,7 +11,7 @@ export default {
     once: true,
     async execute(context, client) {
         await clientReady(context, client);
-        await createMessageResources(context, client);
+        // await createMessageResources(context, client);
         await createMessageSupport(context, client);
     }
 };

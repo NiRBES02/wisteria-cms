@@ -2,9 +2,6 @@
 
 use App\Classes\Request;
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 define('devsakura', true);
 
 require_once('./init.php');

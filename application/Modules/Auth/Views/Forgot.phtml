@@ -1,0 +1,52 @@
+<div class="h-dvh relative">
+
+  <div class="absolute inset-0 bg-[url('/application/modules/auth/public/img/background.jpg')] bg-cover bg-center">
+    <div class="absolute inset-0 bg-black opacity-70"></div>
+  </div>
+
+
+
+  <div class="absolute inset-0 backdrop-blur flex justify-center items-center">
+    <div id="card-login" class="bg-zinc-900 border border-zinc-800 p-8 w-full max-w-xl rounded-2xl shadow-2xl shadow-purple-400/25 backdrop-blur">
+      <div class="text-center mb-8">
+        <div class="text-2xl font-black text-white uppercase tracking-tighter">
+          Восстановить пароль<span class="text-purple-500">.</span>
+        </div>
+        <span class="text-zinc-400 text-2xs font-bold uppercase tracking-widest">
+          Для восстановления пароля укажите свой e-mail
+        </span>
+      </div>
+
+      <form id="formRegister" class="space-y-4">
+
+        <div class="relative group flex items-center">
+          <div
+            class="absolute left-5 size-6 text-zinc-400 group-focus-within:text-purple-400 transition-colors pointer-events-none z-1">
+            <div class="relative">
+              <div id="icon-user" class="absolute transition-all duration-700 opacity-100 scale-100">
+                <i class="fa-duotone fa-regular fa-at"></i>
+              </div>
+            </div>
+          </div>
+          <input type="text" name="email" id="emailInput" placeholder=" "
+            class="peer w-full bg-zinc-950 border border-zinc-800 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-transparent outline-none focus:border-purple-400/50 focus:ring-4 focus:ring-purple-400/25 transition-all z-0">
+          <label for="emailInput"
+            class="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-zinc-400 tracking-widest pointer-events-none transition-all duration-100 z-10
+          peer-focus:left-5 peer-focus:top-0 peer-focus:bg-zinc-950 peer-focus:border peer-focus:border-purple-400/50 peer-focus:px-2 peer-focus:py-0.5 peer-focus:rounded-lg peer-focus:text-2xs peer-focus:text-purple-400
+          peer-not-placeholder-shown:left-5 peer-not-placeholder-shown:top-0 peer-not-placeholder-shown:bg-zinc-950 peer-not-placeholder-shown:border peer-not-placeholder-shown:border-purple-400/50 peer-not-placeholder-shown:px-2 peer-not-placeholder-shown:py-0.5 peer-not-placeholder-shown:rounded-lg peer-not-placeholder-shown:text-2xs">
+            E-mail
+          </label>
+        </div>
+
+
+        <div class="flex items-center gap-4 w-full">
+          <button id="btnLogin" type="submit"
+            class="w-full bg-purple-500 hover:bg-purple-400 font-bold py-4 rounded-2xl transition-all hover:shadow-full-md hover:shadow-purple-400/50 uppercase tracking-widest text-xs active:scale-99 duration-200 flex justify-center items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer h-12">
+            <span>Отправить письмо</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
