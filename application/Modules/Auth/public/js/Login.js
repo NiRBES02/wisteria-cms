@@ -6,6 +6,21 @@ ds.event.once('content.loaded', () => {
 
   const showPasswordBtn = document.getElementById('showPassword');
   const iconShowPassword = document.getElementById('icon-show-password');
+  const button = document.getElementById('btnLogin');
+
+  const processLoading = () => {
+    const originalText = button.textContent;
+    const wasDisabled = button.disabled;
+
+    button.textContent = 'Авторизация...';
+    button.disabled = true;
+
+    return () => {
+      button.textContent = originalText;
+      button.disabled = wasDisabled;
+    };
+  };
+
 
   let showAt = false;
 
@@ -39,9 +54,10 @@ ds.event.once('content.loaded', () => {
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const resButton = processLoading();
     try {
       const formData = new FormData(form);
-      // formData.append('client', JSON.stringify(ds.ua.getResult()));
+      formData.append('client', JSON.stringify(ds.uap.getResult()));
 
       const response = await fetch('/auth/api/login', {
         method: 'POST',
@@ -60,10 +76,13 @@ ds.event.once('content.loaded', () => {
           return;
         }
       }
+
+      await ds.delay(2000);
+
     } catch (err) {
       console.error(err);
     } finally {
-
+      resButton();
     }
   });
 });

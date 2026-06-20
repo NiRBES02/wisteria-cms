@@ -34,6 +34,9 @@ class LoginModel {
     $login = trim($_POST['login'] ?? '');
     $password = $_POST['password'] ?? '';
     $remember = isset($_POST['remember']);
+    $client = json_decode($_POST['client'], true);
+
+    // $this->core->json(['notify' => ['message' => $client['browser'], 'type' => 'json']]);
 
     if (empty($login) || empty($password)) {
       $this->core->json(['notify' => ['message' => 'Заполните все поля', 'type' => 'warning']]);
@@ -58,7 +61,11 @@ class LoginModel {
 
     $loginResult = $this->core->auth->login($userRow['login'], $password, $remember);
     if ($loginResult) {
-      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to('nirbes02@mail.ru')->subject('Выполнен вход')->body('В ваш аккаунт выполнен вход')->send();
+      $this->mailer->from('yuki@wisteriamc.ru', 'Yuki')->to('nirbes02@mail.ru')->subject('Выполнен вход')->body($this->core->html(_Modules . '/Auth/Views/MailMessageLogin.phtml', [
+        'browser' => $client['browser'],
+        'ip' => Core::ip(),
+        'date' => Core::formatDate()
+      ]))->send();
       $this->updateLastIp($this->core->auth->getUser()->id);
 
       $this->core->json(['notify' => ['message' => 'Вы успешно авторизовались!', 'type' => 'success']]);

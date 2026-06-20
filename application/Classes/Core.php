@@ -167,4 +167,31 @@ class Core {
   //   }
   //   return $string;
   // }
+
+
+  public static function formatDate($timestamp = null) {
+    if ($timestamp === null) {
+      $timestamp = time();
+    }
+
+    $months = [
+      'January' => 'января',
+      'February' => 'февраля',
+      'March' => 'марта',
+      'April' => 'апреля',
+      'May' => 'мая',
+      'June' => 'июня',
+      'July' => 'июля',
+      'August' => 'августа',
+      'September' => 'сентября',
+      'October' => 'октября',
+      'November' => 'ноября',
+      'December' => 'декабря'
+    ];
+
+    $monthEn = date('F', $timestamp);
+    $monthRu = $months[$monthEn];
+
+    return date('j', $timestamp) . ' ' . $monthRu . ' ' . date('Y, H:i', $timestamp);
+  }
 }

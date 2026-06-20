@@ -21,6 +21,7 @@
 		"nprogress": "^0.2.0",
 		"ollama": "^0.6.3",
 		"skinview3d": "^3.4.2",
+		"ua-parser-js": "^2.0.10",
 		"wrap-ansi": "^10.0.0"
 	},
 	"devDependencies": {
