@@ -29,5 +29,7 @@ return [
   'manager',
   'owner',
 
-  'lara'
+  // Зарезервированные логины
+  'goddessfox',
+  'lara',
 ];
