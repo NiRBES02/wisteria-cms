@@ -1,0 +1,42 @@
+<div class="h-svh bg-zinc-950 flex flex-col justify-center items-center relative overflow-hidden px-6">
+  <div class="absolute inset-0 bg-[url(/public/assets/img/background/banner-2.jpeg)] bg-cover bg-center opacity-40"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-zinc-950 via-zinc-950/60 to-transparent backdrop-blur"></div>
+
+  <div class="absolute insent-0 flex flex-col items-center text-center p-4">
+
+    <div class="relative mb-4 mt-20">
+      <h1 class="text-[10rem] md:text-[14rem] font-black text-white/5 uppercase tracking-tighter select-none">
+        404
+      </h1>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <img src="/public/assets/img/yuki-chibi/chibi_yuki.png" class="h-40 md:h-52 drop-shadow-[0_0_30px_rgba(139,92,246,0.3)] animate-bounce [animation-duration:2s]">
+      </div>
+    </div>
+
+    <div class="max-w-md space-y-4">
+      <div class="text-3xl md:text-4xl font-black text-white uppercase tracking-tight">
+        Ой, тут явно <span class="text-purple-500 underline decoration-purple-500/30 underline-offset-8">пусто</span>...
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <span class="text-zinc-400 text-sm md:text-base font-medium uppercase tracking-wide border-l-2 border-purple-500/30 px-4">
+          Ссылка недействительна, просрочена или уже была использована.
+        </span>
+
+
+        <div class="flex flex-col sm:flex-row gap-4 mt-4 w-full justify-center">
+          <a href="/" class="group/btn relative flex items-center justify-center gap-4 text-white bg-purple-600 hover:bg-purple-500 px-8 py-4 rounded-2xl text-xs font-black transition-all hover:shadow-full-md hover:shadow-purple-400 active:scale-95 uppercase tracking-[0.2em]">
+            <i class="fa-regular fa-house text-sm"></i>
+            <span>На главную</span>
+
+          </a>
+
+          <button onclick="location.reload()" class="flex items-center justify-center gap-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-8 py-4 rounded-2xl text-xs font-black transition-all active:scale-95 uppercase tracking-[0.2em] cursor-pointer">
+            <i class="fa-regular fa-rotate-right text-sm text-zinc-400"></i>
+            <span>Обновить</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

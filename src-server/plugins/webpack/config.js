@@ -1,6 +1,7 @@
 import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import CircularDependencyPlugin from 'circular-dependency-plugin'
 
 const ROOT = path.resolve(process.cwd(), './');
 const __filename = fileURLToPath(import.meta.url);
@@ -61,6 +62,7 @@ export default {
   },
 
   optimization: {
+    concatenateModules: false,
     splitChunks: {
       chunks: 'all',
       minSize: 0,
@@ -115,5 +117,11 @@ export default {
       fileName: 'manifest.json',
       publicPath: '/public/assets/js/devsakura/',
     }),
+    new CircularDependencyPlugin({
+      exclude: /node_modules/,
+      failOnError: true,
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
+    })
   ],
 };

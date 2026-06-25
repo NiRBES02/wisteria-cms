@@ -12,7 +12,7 @@
 	"type": "module",
 	"dependencies": {
 		"@tailwindcss/cli": "^4.3.1",
-		"apexcharts": "^5.15.0",
+		"apexcharts": "^5.15.2",
 		"archiver": "^8.0.0",
 		"chalk": "^5.6.2",
 		"discord.js": "^14.26.4",
@@ -26,9 +26,10 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "^4.3.1",
-		"autoprefixer": "^10.5.0",
+		"autoprefixer": "^10.5.2",
 		"babel-loader": "^10.1.1",
-		"baseline-browser-mapping": "^2.10.38",
+		"baseline-browser-mapping": "^2.10.40",
+		"circular-dependency-plugin": "^5.2.2",
 		"css-loader": "^7.1.4",
 		"postcss": "^8.5.15",
 		"postcss-loader": "^8.2.1",
@@ -36,7 +37,7 @@
 		"tailwindcss": "^4.3.1",
 		"terser-webpack-plugin": "^5.6.1",
 		"thread-loader": "^4.0.4",
-		"webpack": "^5.107.2",
+		"webpack": "^5.108.0",
 		"webpack-cli": "^7.0.3",
 		"webpack-manifest-plugin": "^6.0.1",
 		"workbox-webpack-plugin": "^7.4.1"

@@ -1,3 +1,3 @@
-import * as np from 'nprogress';
+import np from 'nprogress';
 
 export default np;

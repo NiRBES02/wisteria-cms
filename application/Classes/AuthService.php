@@ -225,4 +225,28 @@ class AuthService {
   public static function createTmp(): string {
     return Core::random(16);
   }
+
+  /**
+   * Изменяет пароль пользователя в базе данных.
+   * @param int $userId
+   * @param string $password
+   * @return bool
+   */
+  public function changePassword(int $userId, string $password): bool {
+    if (!$this->database) {
+      return false;
+    }
+
+    try {
+      $passwordHash = $this->genPassword($password);
+
+      $stmt = $this->database->prepare("UPDATE users SET password = ? WHERE id = ?");
+      $stmt->execute([$passwordHash, $userId]);
+
+      return $stmt->rowCount() > 0;
+    } catch (\PDOException $e) {
+      error_log("Change password error for user {$userId}: " . $e->getMessage());
+      return false;
+    }
+  }
 }
