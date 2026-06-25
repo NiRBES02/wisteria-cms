@@ -55,7 +55,7 @@ class ForgotResetPasswordModel {
       $stmt = $this->database->prepare('
                 SELECT user_id 
                 FROM users_forgot 
-                WHERE token_hash = :token_hash AND expires_at > NOW() 
+                WHERE token_hash = :token_hash
                 LIMIT 1
             ');
       $stmt->execute(['token_hash' => $this->token]);

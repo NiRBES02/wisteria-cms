@@ -24,10 +24,18 @@ class ForgotController extends AuthController {
     }
 
     try {
+      // $stmt = $this->core->database->prepare('
+      //   SELECT user_id 
+      //   FROM users_forgot 
+      //   WHERE token_hash = :token_hash AND expires_at > NOW()
+      //   LIMIT 1
+      // ');
+
+      // NiRBES: Временно убрал проверку по времени
       $stmt = $this->core->database->prepare('
         SELECT user_id 
         FROM users_forgot 
-        WHERE token_hash = :token_hash AND expires_at > NOW()
+        WHERE token_hash = :token_hash
         LIMIT 1
       ');
       $stmt->execute(['token_hash' => $token]);
