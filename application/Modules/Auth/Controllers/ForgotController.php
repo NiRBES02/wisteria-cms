@@ -15,7 +15,7 @@ class ForgotController extends AuthController {
     $token = trim($_GET['token'] ?? '');
 
     if (empty($token)) {
-      $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/js/ForgotSend.js']);
+      $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/Js/ForgotSend.js']);
       $this->core->layoutManager->setContent([
         'content' => $this->core->html(_Modules . '/Auth/Views/Forgot.phtml')
       ]);
@@ -46,7 +46,7 @@ class ForgotController extends AuthController {
       return $this->core->layoutManager->render();
     }
 
-    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/js/ForgotReset.js']);
+    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/Js/ForgotReset.js']);
     $this->core->layoutManager->setContent([
       'content' => $this->core->html(_Modules . '/Auth/Views/ForgotResetPassword.phtml', [
         'token' => $token

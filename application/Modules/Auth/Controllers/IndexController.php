@@ -10,7 +10,7 @@ class IndexController extends AuthController {
       return;
     }
 
-    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/js/Login.js']);
+    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/Js/Login.js']);
     $this->core->layoutManager->setContent([
       'content' => $this->core->html(_Modules . '/Auth/Views/Login.phtml')
     ]);

@@ -10,7 +10,7 @@ class RegisterController extends AuthController {
       return;
     }
 
-    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/js/Register.js']);
+    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/Js/Register.js']);
     $this->core->layoutManager->setContent([
       'content' => $this->core->html(_Modules . '/Auth/Views/Register.phtml')
     ]);
