@@ -39,6 +39,7 @@ class ForgotResetPasswordModel {
       return;
     }
 
+
     if (empty($this->password)) {
       $this->core->json(['notify' => ['message' => 'Новый пароль не указан', 'type' => 'warning']]);
       return;
