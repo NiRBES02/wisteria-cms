@@ -1,7 +1,7 @@
 ds.event.once('content.loaded', () => {
 
-  const form = document.getElementById('formForgot');
-  const button = document.getElementById('btnForgot');
+  const form = document.getElementById('formAuth');
+  const button = document.getElementById('btnSubmit');
 
   const processLoading = () => {
     const originalText = button.textContent;
@@ -16,17 +16,14 @@ ds.event.once('content.loaded', () => {
     };
   };
 
-
-
-
-
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const resButton = processLoading();
     try {
       const formData = new FormData(form);
+      formData.append('client', JSON.stringify(ds.uap.getResult()));
 
-      const response = await fetch('/auth/api/forgotSendMail', {
+      const response = await fetch('/auth/api/ForgotResetPassword', {
         method: 'POST',
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         body: formData,
@@ -39,13 +36,10 @@ ds.event.once('content.loaded', () => {
       if (data.notify) {
         await ds.notify(data.notify.message, data.notify.type);
         if (data.notify.type === 'success') {
-          // await Promise.all([ds.content.load('/'), ds.event.emit('auth.loggedIn')]);
+          await Promise.all([ds.content.load('/')]);
           return;
         }
       }
-
-      await ds.delay(2000);
-
     } catch (err) {
       console.error(err);
     } finally {

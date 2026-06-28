@@ -1,120 +1,79 @@
-<div
-    class="h-svh bg-[url(/application/Modules/Main/Public/assets/img/banner-3.png)] bg-cover bg-center relative overflow-hidden">
-    <div class="absolute inset-0 bg-linear-to-t from-zinc-950 to-transparent backdrop-blur-xs md:backdrop-blur-none">
-    </div>
-    <svg viewBox="0 0 1000 200" preserveAspectRatio="none" class="block w-[200%] h-32 left-0 -bottom-2 absolute">
-        <path id="wave-back" class="fill-black opacity-50"
-            d="M0,100 C125,60 375,140 500,100 C625,60 875,140 1000,100 L1000,200 L0,200 Z" />
-        <path id="wave-front" class="fill-black"
-            d="M0,100 C125,50 375,150 500,100 C625,50 875,150 1000,100 L1000,200 L0,200 Z" />
-    </svg>
+<div class="relative md:h-screen overflow-hidden bg-[url('/public/assets/img/background/background.png')] bg-cover bg-center ">
+    <div class="absolute inset-0 bg-violet-950/50"></div>
+    <div class="absolute -top-40 -left-40 size-150 rounded-full bg-violet-900/50 blur-2xl mix-blend-screen"></div>
 
-    <div class="absolute inset-0 flex flex-col">
+    <div class="absolute -bottom-20 -right-20 size-125 rounded-full bg-indigo-900/50 blur-2xl mix-blend-screen"></div>
 
-        <div class="flex flex-1 flex-col items-center justify-center">
-            <div class="relative size-48 md:size-64 flex justify-center items-center">
-                <div class="size-48 md:size-64 overflow-hidden rounded-full grid grid-cols-2 blur-3xl rotate-45">
-                    <div class="bg-purple-400 size-full"></div>
-                    <div class="bg-green-400 size-full"></div>
-                </div>
-                <div class="absolute flex justify-center items-center">
-                    <div class="size-32 md:size-48 overflow-hidden">
-                        <img src="/public/assets/img/logo.PNG">
-                    </div>
-                </div>
-                <div class="absolute w-full -bottom-2 md:-bottom-6 flex justify-center items-end">
-                    <div class="">
-                        <img src="/public/assets/img/wisteria.PNG" class="">
-                    </div>
-                </div>
-
+    <div class="relative z-1 h-full grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto">
+        <div class="flex flex-col justify-center p-4 md:py-4 gap-4">
+            <div class="text-6xl -tracking-wide bg-linear-to-r from-white to-purple-400 bg-clip-text font-exo-black text-transparent py-2">
+                Встречайте Techno-Magic!
             </div>
-        </div>
-        <div class="w-full max-w-8xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-end pb-28">
-            <div class="max-w-3xl w-full">
-                <div
-                    class="text-4xl text-center md:text-left font-black text-white uppercase tracking-tighter mb-4 shadow-violet-500/20">
-                    Скоро<span class="text-purple-400">...</span>
-                </div>
-                <div
-                    class="flex flex-col md:flex-row md:justify-between gap-8 md:items-center border-l-2 border-violet-500/30 md:pl-6 ml-1">
-                    <div class="space-y-2">
-                        <p
-                            class="text-zinc-300 text-sm md:text-base font-medium leading-relaxed max-w-sm uppercase tracking-wide text-center md:text-left px-4">
-                            Присоединяйся к нам! Строй механизмы, ищи следы древней магии и сражайся за титул лучшего в
-                            эпических PvP-сражениях.
-                        </p>
-                        <div class="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-1">
-                            <span
-                                class="text-2xs text-zinc-300 font-bold uppercase tracking-widest flex items-center gap-1.5">
-                                <i class="fa-duotone fa-regular fa-microchip text-blue-400"></i> Hi-Tech
-                            </span>
-                            <span
-                                class="text-2xs text-zinc-300 font-bold uppercase tracking-widest flex items-center gap-1.5">
-                                <i class="fa-duotone fa-regular fa-wand-magic-sparkles text-violet-400"></i> Magic
-                            </span>
-                            <span
-                                class="text-2xs text-zinc-300 font-bold uppercase tracking-widest flex items-center gap-1.5">
-                                <i class="fa-duotone fa-regular fa-swords text-red-400"></i> Survival
+            <div class="flex gap-4">
+                <div class="w-1 bg-purple-400 shadow-full-sm shadow-purple-400/50 rounded-full"></div>
+                <div class="space-y-2">
+                    <div class="text-zinc-200 text-xs md:text-base font-medium leading-relaxed max-w-sm uppercase tracking-wide text-center md:text-left px-2">
+                        Новый сервер Techno-Magic уже доступен! Откройте для себя новые горизонты магического мира в техническом сегменте
+                    </div>
+                    <div class="flex">
+                        <div class="bg-purple-800/25 backdrop-blur-xs px-4 py-2 rounded-xl border border-white/25 flex items-center gap-2">
+                            <span class="text-2xs text-zinc-200 uppercase tracking-widest">
+                                <span class="text-purple-500 font-black">
+                                    <?= $usersCount; ?>
+                                </span>
+                                <?= $this->declension($usersCount, ['пользователь', 'пользователя', 'пользователей']); ?> уже
+                                с нами
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-            <div class="flex flex-col items-end gap-4">
-                <div class="text-right hidden md:block">
-                    <span class="text-xs text-zinc-200 font-bold uppercase tracking-widest block mb-1">
-                        Предворительная регистрация
-                    </span>
-                    <div class="h-0.5 w-48 ml-auto bg-linear-to-r from-transparent to-purple-500 rounded-r-full"></div>
+            <div class="flex gap-4">
+                <a href="#" class="px-6 py-4 rounded-md bg-purple-400 hover:bg-purple-400/50 hover:ring-2 hover:ring-purple-400 uppercase text-sm hover:-translate-y-0.5 transition-all duration-200 cursor-pointer hover:shadow-full-xl hover:shadow-blue-400/50">
+                    Начать игру</a>
+                <a href="#" class="px-6 py-4 rounded-md bg-zinc-950/25 uppercase text-sm border border-zinc-400/25 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">Новости</a>
+            </div>
+            <div class="flex gap-4">
+                <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-md backdrop-blur-xs">
+                    <div class="font-exo-black">1.21.1</div>
+                    <div class="text-[8px] uppercase text-zinc-300">Основная версия</div>
                 </div>
-
-                <a href="/auth"
-                    class="group relative flex justify-center items-center gap-4 bg-purple-500 w-full h-14 rounded-lg uppercase tracking-[0.1rem] font-bold shadow-full-lg shadow-purple-500/50 hover:shadow-full-2xl hover:shadow-purple-400/75 hover:bg-purple-400 transition-all duration-200">
-                    <div>
-                        <span class="relative text-lg">Регистрация</span>
-                        <i class="fa-duotone fa-regular fa-arrow-right text-lg transition-transform group-hover:translate-x-1"></i>
-                    </div>
-                </a>
-
-                <!-- <a href="/auth"
-                    class="group/btn relative flex items-center gap-6 text-white bg-purple-400 hover:bg-purple-500 px-12 py-5 mt-4 md:mt-0 rounded-2xl text-sm font-black transition-all shadow-full-lg shadow-purple-400 hover:shadow-full-xl hover:shadow-purple-400 active:scale-95 uppercase tracking-[0.2em]">
-                    <span class="relative text-lg">Регистрация</span>
-                    <i
-                        class="fa-duotone fa-regular fa-arrow-right text-lg transition-transform group-hover/btn:translate-x-1"></i>
-                    <div
-                        class="absolute inset-0 rounded-2xl bg-linear-to-tr from-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity">
-                    </div>
-                </a> -->
-
-                <div class="w-full flex justify-center">
-                    <div
-                        class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl border border-white/5 flex items-center gap-3">
-                        <!-- <div class="flex -space-x-2">
-                          <div class="w-6 h-6 rounded-md border border-zinc-800 bg-zinc-700"
-                            style="background: url('/?router=skin&user=NiRBES&mode=mini'); background-size: cover;">
-                          </div>
-                          <div class="w-6 h-6 rounded-md border border-zinc-800 bg-zinc-700"
-                            style="background: url('/?router=skin&user=Goddessfox&mode=mini'); background-size: cover;">
-                          </div>
-                          <div class="w-6 h-6 rounded-md border border-zinc-800 bg-zinc-700"
-                            style="background: url('/?router=skin&user=Yuki&mode=mini'); background-size: cover;">
-                          </div>
-                        </div> -->
-                        <span class="text-2xs font-bold text-zinc-300 uppercase tracking-widest">
-                            <span class="text-purple-500">
-                                <?= $usersCount; ?>
-                            </span>
-                            <?= $this->declension($usersCount, ['пользователь', 'пользователя', 'пользователей']); ?> уже
-                            с нами
-                        </span>
-                    </div>
+                <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-md backdrop-blur-xs">
+                    <div class="font-exo-black">Techno-Magic</div>
+                    <div class="text-[8px] uppercase text-zinc-300">Популярный сервер</div>
+                </div>
+                <div class="bg-white/5 border border-white/10 px-4 py-2 rounded-md backdrop-blur-xs">
+                    <div class="font-exo-black">20 TPC</div>
+                    <div class="text-[8px] uppercase text-zinc-300">Стабильные сервера</div>
                 </div>
             </div>
         </div>
+        <div class="flex justify-center items-center pointer-events-none my-20">
+            <div class="relative">
 
+                <div class="md:w-84 md:h-92 w-64 h-72 p-2 border-x border-purple-800 rounded-2xl bg-purple-950/50 backdrop-blur-xs flex justify-center items-center">
+                    <div class="size-full bg-[url(/public/assets/img/seasons/season-i-2026.png)] bg-cover bg-center rounded-xl">
+                        <span class="hidden">Главный блок</span>
+                    </div>
+                </div>
+                <div class="absolute md:size-42 size-24 md:-bottom-8 md:-left-12 -bottom-2 -left-16 border-x border-purple-800 rounded-2xl bg-purple-950/50 backdrop-blur-xs -rotate-15 flex justify-center items-center p-2 shadow-lg shadow-purple-950">
+                    <div class="size-full bg-[url(/public/assets/img/seasons/season-i-2026-1.png)] bg-cover bg-center rounded-xl">
+                        <span class="hidden">Левый нижний блок</span>
+                    </div>
+                </div>
+                <div class="absolute md:size-42 size-24 md:-top-8 md:-right-12 -top-4 -right-8 border-x border-purple-800 rounded-2xl bg-purple-950/50 backdrop-blur-xs rotate-25 flex justify-center items-center p-2 shadow-lg shadow-purple-950">
+                    <div class="size-full bg-[url(/public/assets/img/seasons/season-i-2026-2.png)] bg-cover bg-center rounded-xl">
+                        <span class="hidden">Правый верхний блок</span>
+                    </div>
+                </div>
+                <div class="absolute min-h-32 max-w-2xs md:w-full md:-right-32 md:-bottom-8 -right-16 -bottom-9 border-x border-purple-800 p-4 bg-linear-to-br from-purple-950/50 to-pink-950/50 rounded-2xl backdrop-blur-xs shadow-full shadow-purple-950">
+                    <div class="text-xs uppercase font-bold text-purple-300 tracking-widest">Новый сезон</div>
+                    <div class="text-md uppercase font-bold text-purple-100">Открытие сезона 2026</div>
+                    <div class="mt-2 text-xs font-medium text-purple-200">Успейте принять участие в главном сезоне этого года! Битвы с боссами, ценные награды и многое другое</div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
+
+<div class="h-48 bg-purple-950"></div>

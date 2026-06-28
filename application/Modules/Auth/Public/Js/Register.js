@@ -1,27 +1,26 @@
 ds.event.once('content.loaded', () => {
+  const form = document.getElementById('formAuth');
 
-  const form = document.getElementById('formRegister');
-  const iconUser = document.getElementById('icon-user');
-  const iconAt = document.getElementById('icon-at');
+  const button = document.getElementById('btnSubmit');
 
-  const showPasswordBtn = document.getElementById('showPassword');
-  const iconShowPassword = document.getElementById('icon-show-password');
+  const processLoading = () => {
+    const originalText = button.textContent;
+    const wasDisabled = button.disabled;
+    button.textContent = 'Регистрация...';
+    button.disabled = true;
 
-  let showAt = false;
-
-  showPasswordBtn.addEventListener('click', () => {
-    const isPassword = passwordInput.type === 'password';
-    passwordInput.type = isPassword ? 'text' : 'password';
-
-    iconShowPassword.classList.toggle('fa-eye', !isPassword);
-    iconShowPassword.classList.toggle('fa-eye-slash', isPassword);
-  });
-
+    return () => {
+      button.textContent = originalText;
+      button.disabled = wasDisabled;
+    };
+  };
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const resButton = processLoading();
     try {
       const formData = new FormData(form);
+      formData.append('client', JSON.stringify(ds.uap.getResult()));
 
       const response = await fetch('/auth/api/register', {
         method: 'POST',
@@ -36,14 +35,15 @@ ds.event.once('content.loaded', () => {
       if (data.notify) {
         await ds.notify(data.notify.message, data.notify.type);
         if (data.notify.type === 'success') {
-          await Promise.all([ds.content.load('/'), ds.event.emit('auth.registered')]);
+          await Promise.all([ds.content.load('/auth')]);
           return;
         }
       }
+
     } catch (err) {
       console.error(err);
     } finally {
-
+      resButton();
     }
   });
 });

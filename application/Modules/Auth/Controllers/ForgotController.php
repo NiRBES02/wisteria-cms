@@ -54,7 +54,10 @@ class ForgotController extends AuthController {
       return $this->core->layoutManager->render();
     }
 
-    $this->core->layoutManager->setContentScripts(['/application/Modules/Auth/Public/Js/ForgotReset.js']);
+    $this->core->layoutManager->setContentScripts([
+      '/application/Modules/Auth/Public/Js/ForgotReset.js',
+      '/application/Modules/Auth/Public/Js/ShowPassword.js'
+    ]);
     $this->core->layoutManager->setContent([
       'content' => $this->core->html(_Modules . '/Auth/Views/ForgotResetPassword.phtml', [
         'token' => $token

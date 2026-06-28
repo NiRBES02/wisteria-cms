@@ -13,8 +13,56 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Exo2';
+  src: url('/public/assets/font/Exo2.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Exo2-Regular';
+  src: url('/public/assets/font/Exo2-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Exo2-Black';
+  src: url('/public/assets/font/Exo2-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Exo2-Bold';
+  src: url('/public/assets/font/Exo2-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/public/assets/font/minecraft_0.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-inter: 'Inter';
+  --font-exo: 'Exo2';
+  --font-exo-regular: 'Exo2-Regular';
+  --font-exo-black: 'Exo2-Black';
+  --font-exo-bold: 'Exo2-Bold';
+  --font-minecraft: 'Minecraft';
+
+  /* ==========================================================================
+     1. OUTSIDE SHADOWS (Обычные тени / Эффект парения и свечения)
+     ========================================================================== */
 
   --shadow-full: 
     0 0 4px 0 rgba(0, 0, 0, 0.12),
@@ -49,6 +97,105 @@
   --shadow-full-2xl: 
     0 0 16px 0 rgba(0, 0, 0, 0.1),
     0 0 64px 0 rgba(0, 0, 0, 0.05);
+
+  /* Массивное внешнее рассеивание (3XL) */
+  --shadow-full-3xl: 
+    0 0 24px 0 rgba(0, 0, 0, 0.12),
+    0 0 80px 0 rgba(0, 0, 0, 0.06);
+
+  /* Крупный объемный бэкдроп (4XL) */
+  --shadow-full-4xl: 
+    0 0 32px 0 rgba(0, 0, 0, 0.14),
+    0 0 96px 0 rgba(0, 0, 0, 0.06);
+
+  /* Глубокое мега-пространство (5XL) */
+  --shadow-full-5xl: 
+    0 0 40px 0 rgba(0, 0, 0, 0.16),
+    0 0 128px 0 rgba(0, 0, 0, 0.07);
+
+  /* Кинематографичный оверлей (6XL) */
+  --shadow-full-6xl: 
+    0 0 48px 0 rgba(0, 0, 0, 0.18),
+    0 0 160px 0 rgba(0, 0, 0, 0.07);
+
+  /* Экстремальное рассеивание света (7XL) */
+  --shadow-full-7xl: 
+    0 0 56px 0 rgba(0, 0, 0, 0.20),
+    0 0 192px 0 rgba(0, 0, 0, 0.08);
+
+  /* Максимальный масштаб для гигантских блоков (8XL) */
+  --shadow-full-8xl: 
+    0 0 64px 0 rgba(0, 0, 0, 0.22),
+    0 0 256px 0 rgba(0, 0, 0, 0.08);
+
+
+  /* ==========================================================================
+     2. INSET SHADOWS (Внутренние тени / Эффект вдавленности и глубины)
+     ========================================================================== */
+
+  --shadow-inset-full: 
+    inset 0 0 4px 0 rgba(0, 0, 0, 0.12),
+    inset 0 0 8px 0 rgba(0, 0, 0, 0.04);
+
+  /* Внутреннее микро-свечение */
+  --shadow-inset-full-xs: 
+    inset 0 0 2px 0 rgba(0, 0, 0, 0.12),
+    inset 0 0 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* Внутреннее легкое свечение (чекбоксы, переключатели, инпуты) */
+  --shadow-inset-full-sm: 
+    inset 0 0 4px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 8px 0 rgba(0, 0, 0, 0.05);
+
+  /* Внутренний средний объем */
+  --shadow-inset-full-md: 
+    inset 0 0 6px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 12px 0 rgba(0, 0, 0, 0.05);
+
+  /* Выраженный эффект «вдавленности» */
+  --shadow-inset-full-lg: 
+    inset 0 0 8px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 16px 0 rgba(0, 0, 0, 0.05);
+
+  /* Глубокий внутренний эффект объема (XL) */
+  --shadow-inset-full-xl: 
+    inset 0 0 12px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 24px 0 rgba(0, 0, 0, 0.05);
+
+  /* Масштабный внутренний объем (2XL) */
+  --shadow-inset-full-2xl: 
+    inset 0 0 16px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 64px 0 rgba(0, 0, 0, 0.05);
+
+  /* Для крупных секций и контентных блоков (3XL) */
+  --shadow-inset-full-3xl: 
+    inset 0 0 24px 0 rgba(0, 0, 0, 0.12),
+    inset 0 0 80px 0 rgba(0, 0, 0, 0.06);
+
+  /* Массивное внутреннее поглощение (4XL) */
+  --shadow-inset-full-4xl: 
+    inset 0 0 32px 0 rgba(0, 0, 0, 0.14),
+    inset 0 0 96px 0 rgba(0, 0, 0, 0.06);
+
+  /* Мягкое затемнение больших площадей экрана (5XL) */
+  --shadow-inset-full-5xl: 
+    inset 0 0 40px 0 rgba(0, 0, 0, 0.16),
+    inset 0 0 128px 0 rgba(0, 0, 0, 0.07);
+
+  /* Эффект глубокого погружения «внутрь матрицы» (6XL) */
+  --shadow-inset-full-6xl: 
+    inset 0 0 48px 0 rgba(0, 0, 0, 0.18),
+    inset 0 0 160px 0 rgba(0, 0, 0, 0.07);
+
+  /* Экстремальное виньетирование по краям (7XL) */
+  --shadow-inset-full-7xl: 
+    inset 0 0 56px 0 rgba(0, 0, 0, 0.20),
+    inset 0 0 192px 0 rgba(0, 0, 0, 0.08);
+
+  /* Максимальный масштабный объем для огромных экранов/модалок (8XL) */
+  --shadow-inset-full-8xl: 
+    inset 0 0 64px 0 rgba(0, 0, 0, 0.22),
+    inset 0 0 256px 0 rgba(0, 0, 0, 0.08);
 }
 
 @layer utilities {
